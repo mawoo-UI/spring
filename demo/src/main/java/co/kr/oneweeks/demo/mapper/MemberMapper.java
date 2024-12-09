@@ -1,7 +1,7 @@
 package co.kr.oneweeks.demo.mapper;
 
-import org.apache.ibatis.annotation.Mapper;
-import org.apache.ibatis.annotation.Select;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 
 @Mapper

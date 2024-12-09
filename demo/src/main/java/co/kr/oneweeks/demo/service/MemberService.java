@@ -12,7 +12,7 @@ public class MemberService {
     @Autowired
     private MemberMapper mapper;
 
-    public String slectNow() {
+    public String selectNow() {
         log.error(mapper.selectNow());
         return mapper.selectNow();
     }
