@@ -1,0 +1,46 @@
+spring boot initializr
+
+ioC > DI, DL
+Logger(Log4j2)
+Test Code(Junit5)
+
+Spring Container
+application.properties
+(XML, Annotation)
+DI
+AOP
+
+Spring Container는 인스턴스 생성 방식을 두가지 종류중 하나를 채택
+
+1.인터페이스 구현을 통한 객체 생성
+
+2. 상속을 통해 객체 생성
+생성자는 상속은안되지만 호출은 가능
+
+순서:
+클래스 변수 기본값 할당
+지정값 할당
+클래스 초기화블록
+인스턴스변수의 초기값
+값할당
+인스턴스초기화
+생성자 생성
+
+
+@PostConstruct, @PreDestory 어노테이션
+통하여서 순서를 보장 받을 수 있음
+
+
+Asoect : advice + pointcut
+Target : 대상
+Advice : 할일
+JoinPoint : 할곳(method)
+PointCut : 조건식
+Weaving : aspect 과정 전체
+
+spring aop : 기본적인 aop 적용법
+단점 : pointcut적용이 어려움
+메서드 이름으로만 기준
+
+AspectJ aop(표현식 사용) : expression 사용으로 pointcut 적용,직관적문법
+,적용범위가 넓음.
