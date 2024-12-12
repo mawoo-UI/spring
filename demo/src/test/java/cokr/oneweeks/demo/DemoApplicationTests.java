@@ -1,10 +1,10 @@
-package com.example.aop;
+package cokr.oneweeks.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AopApplicationTests {
+class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {
