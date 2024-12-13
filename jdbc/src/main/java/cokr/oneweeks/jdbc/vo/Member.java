@@ -12,8 +12,8 @@ public class Member {
   private String name;
   private String email;
   private String road_addr;
-  private String datail_addr;
-  private LocalDateTime regdata;
+  private String detail_addr;
+  private LocalDateTime regdate;
 
 
 }

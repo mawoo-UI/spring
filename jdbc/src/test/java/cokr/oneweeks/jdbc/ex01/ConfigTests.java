@@ -19,7 +19,7 @@ public class ConfigTests {
     log.info(config.getHikariConfig().getDataSource());
     log.info(config.getHikariDataSource());
     log.info(config.getJdbcTemplate().getDataSource());
-    // Connection connection = config.getHikariConfig().getDataSource().getConnection();
+    // Connection connection = config.getHikariConfig().getDataSource().getConnec`tion();
     // log.info(connection);
   }
 }
