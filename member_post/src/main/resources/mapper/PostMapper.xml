@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cokr.oneweeks.member_post.mapper.PostMapper">
-	<resultMap type="vo.Post" id="post">
+	<resultMap type="post" id="post">
 		<id column="pno" property="pno"/>
 		<result column="title" property="title"/>
 		<result column="content" property="content"/>
@@ -13,8 +13,12 @@
 		<result column="view_count" property="viewCount" />
 		<result column="cno" property="cno" />
 		<result column="attach_flag" property="attachFlag" />
+		<!-- <result column="rootno" property="rootno" />
+		<result column="pdepth" property="pdepth" />
+		<result column="porder" property="porder" /> -->
 	</resultMap>
 
+	
 	<insert id="insert">
 	insert into tbl_post (title, writer, content, cno) values (#{title},#{writer},#{content},#{cno})
 	<selectKey order="AFTER" keyProperty="pno" resultType="long">
@@ -22,8 +26,8 @@
 	</selectKey>
 	</insert>
 	
-	<select id="selectOne" resultMap="post">
-	select tp.*, 1 from tbl_post tp where pno = #{pno}
+	<select id="selectOne" resultType="post">
+	select tp.*, 1 attach_flag from tbl_post tp where pno = #{pno}
 	</select>
 	
 	<select id="getCount" resultType="int">
@@ -63,4 +67,5 @@
 	<delete id="delete">
 	delete from tbl_post where pno = #{pno}
 	</delete>	
+
 </mapper>

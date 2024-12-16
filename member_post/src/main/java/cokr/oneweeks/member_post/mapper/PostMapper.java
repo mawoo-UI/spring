@@ -2,12 +2,13 @@ package cokr.oneweeks.member_post.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import cokr.oneweeks.member_post.dto.Criteria;
 import cokr.oneweeks.member_post.vo.Post;
 
-
+@Mapper
 public interface PostMapper {
 	int insert(Post post);
 	

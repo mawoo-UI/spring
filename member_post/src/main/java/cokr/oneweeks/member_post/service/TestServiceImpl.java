@@ -47,7 +47,7 @@ public class TestServiceImpl implements TestService{
 //		System.out.println(service.findBy(779L));
 //		System.out.println(service.now());
 		
-		System.out.println(service.write(Post.builder().title("마이바티스 제목").content("내용").writer("abcd").build()));
+		// System.out.println(service.write(Post.builder().title("마이바티스 제목").content("내용").writer("abcd").build()));
 		
 		
 	}

@@ -1,11 +1,15 @@
+# logging:
+#     config: classpath:log4j2.yml
 server:
   port: 9999
 spring:
   application:
     name: member_post
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://np.oneweeks.co.kr:3306/post
+    # driver-class-name: org.mariadb.jdbc.Driver
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    # url: jdbc:mariadb://np.oneweeks.co.kr:3306/post
+    url: jdbc:log4jdbc:mariadb://np.oneweeks.co.kr:3306/post
     username: sample
     password: 1234
   mvc:
@@ -14,7 +18,7 @@ spring:
       suffix: .jsp
 mybatis:
   mapper-locations:
-  - classpath:mapper/MemberMapper.xml
+  - classpath:mapper/*.xml
   type-aliases-package: cokr.oneweeks.member_post.vo
   configuration:
     map-underscore-to-camel-case: true

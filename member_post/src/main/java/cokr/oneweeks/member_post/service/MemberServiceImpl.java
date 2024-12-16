@@ -2,13 +2,11 @@ package cokr.oneweeks.member_post.service;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
-import cokr.oneweeks.member_post.mapper.MemberMapper;
-import cokr.oneweeks.member_post.utils.MybatisInit;
-import cokr.oneweeks.member_post.vo.Member;
 import lombok.AllArgsConstructor;
+import cokr.oneweeks.member_post.mapper.MemberMapper;
+import cokr.oneweeks.member_post.vo.Member;
 
 @Service
 @AllArgsConstructor
@@ -17,10 +15,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int register(Member member) {
-		try(SqlSession session = MybatisInit.getInstance().sqlSessionFactory().openSession(true)) {
-		MemberMapper mapper = session.getMapper(MemberMapper.class);
 		return mapper.insert(member);
-		}
 	}
 
 	@Override
