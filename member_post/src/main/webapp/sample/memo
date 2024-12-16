@@ -1,0 +1,40 @@
+log4j2 설정
+
+
+log4jdbc 활용
+
+rootconfig는 잘잡히면 걍 파일만 놔두면 된다.
+log 관련된건 취약점 없는걸로 설정
+
+[log4j 위계구조 (hierarchy)]
+ㄴ모든 로거의 최상위 부모는 Root 로거이다.
+class 에서 로그를 출력하는데 사용된 logger가 log4j.xml 에 존재하지 않는다면, 부모 로거를 찾는다.
+
+Logger > 패키지가 들어감(클래스도 들어감, id등)
+
+%c, %logger : 해당 로그를 쓰는 로거의 이름.
+%C, %class : 해당 로그를 요청한 클래스 이름 (C:풀네임나옴 루트패키지까지만 나옴)
+%d, %date : 해당 로그가 발생한 시간
+%enc, %encode : 특정 언어에서의 출력을 위한 문자 인코딩
+%ex, %exception, %throwable : 예외 로그. 길이를 설정할 수 있음.
+%F, %file : 해당 로그가 발생한 클래스 파일명
+%l, %location : 해당 로그가 발생한 클래스명.메소드명(파일:라인)
+%L, %line : 해당 로그가 발생한 라인 번호
+%m, %msg, %message : 로그문에 전달된 메시지
+%n : 줄바꿈
+%p, %level : 로그 레벨
+%r, %relative : 로그 처리시간
+%t, %thread : 해당 로그가 발생한 스레드명
+%style{pattern}{ANSI style} : ANSI를 사용해 특정 패턴을 스타일링함
+%highlight{pattern}{style} : 로그 레벨명을 ANSI 색깔로 하이라이트
+
+
+포워드:응답을 다른걸 하기위해서 포워드/리퀘스트의 공유
+값들을 바인딩
+리다이렉트로 
+쿠키활용 베이스로 이용
+
+포스트카테고리없음/impl없음
+포스트 컨트롤러 get Cname 터짐
+마이바티스 리절트맵: 갯수가 맞아야함
+

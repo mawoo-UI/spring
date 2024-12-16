@@ -57,6 +57,9 @@ dependencies {
 	
 	// log4j2
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools
+	implementation 'org.springframework.boot:spring-boot-devtools:3.4.0'
 
 }
 
