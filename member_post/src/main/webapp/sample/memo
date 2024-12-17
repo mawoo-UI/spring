@@ -38,3 +38,36 @@ Logger > 패키지가 들어감(클래스도 들어감, id등)
 포스트 컨트롤러 get Cname 터짐
 마이바티스 리절트맵: 갯수가 맞아야함
 
+ModelView → ModelAndView
+ㄴ어떤 json을 지정할건지
+
+서비스와 컨트롤러 차이
+파라미터 수집, 뷰의 존재
+
+서비스: 일반 aop로 동작
+컨트롤러 어드바이스가 더 편리함
+
+Tomcat,Filter
+ㄴ(WebFilter(/*) )
+ㄴ요청 응답 객체 다 사용가능하나 한정적임
+AOP
+ㄴ어노테이션 여부에따라서 다루는게 달라짐(?)
+interceptor
+ㄴ
+reequest,resp
+
+preHandle() :전처리
+postHandle():후처리
+ModelAndView /view에 대한 정보도 관리,컨트롤러 할 일까지 들어옴
+ㄴView 렌더링 전이기에 ModelAndView가 처리될 수 있음.
+afterCompletion():최종
+
+필터는 Request와 Response를 조작할 수 있지만, 인터셉터는 조작할 수 없다.
+필터 체이닝(다음 필터 호출)을 해주어야 하며 원하는 request, response 객체를 넣어줄 수 있다.
+
+인터셉터는 다른 request, response객체를 넘겨줄 수없다.
+
+인터셉터는 필터와 다르게 HttpServletRequest나 HttpServletResponse 
+등과 같은 객체를 제공받으므로 객체 자체를 조작할 수는 없다.
+
+해당 객체가 내부적으로 갖는 값은 조작할 수 있으므로 컨트롤러로 넘겨주기 위한 정보를 가공하기에 용이
