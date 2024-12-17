@@ -10,10 +10,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@Builder
+
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Criteria {
 	private int page = 1; //처음 보여주는 페이지
 	private int amount = 10; //게시물 갯수

@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
  <header class="container-fluid">
             <div class="container clearfix p-2">
-                <a href="/" class="float-start"><img src="images/logo.png" alt="로고" class="img-fluid" width="250"></a>
-                <h1 class="text-center fw-bold p-3">더조은 아카데미 UI 구현 게시판 레이아웃</h1>
+                <a href="/" class="float-start"><img src="images/logo2.png" alt="로고" class="img-fluid" width="250"></a>
+                <h1 class="text-center fw-bold p-3">더조은 아카데미 UI 구현 게시판 레이아웃 ${test}</h1>
             </div>
         </header>
         <nav class="navbar bg-dark navbar-expand-sm">
