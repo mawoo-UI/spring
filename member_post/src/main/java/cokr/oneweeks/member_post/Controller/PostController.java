@@ -109,11 +109,11 @@ public class PostController {
   }
   
 
-  @RequestMapping(value = "msg", produces = {MediaType.TEXT_HTML_VALUE})
-  public String msg(HttpServletResponse resp) {
-    resp.setContentType("text/html");
-      return "<h1>안녕</h1>";
-  }
+  // @RequestMapping(value = "msg", produces = {MediaType.TEXT_HTML_VALUE})
+  // public String msg(HttpServletResponse resp) {
+  //   resp.setContentType("text/html");
+  //     return "<h1>안녕</h1>";
+  // }
   
   
   

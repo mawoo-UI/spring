@@ -52,5 +52,6 @@ public class AuthAspect {
       String url = "/member/signin?url=/post/write?" +URLEncoder.encode (req.getRequestURI() + "?" + req.getQueryString(), "utf-8");
       resp.sendRedirect("/msg?msg=" + URLEncoder.encode("로그인이 필요한 페이지 입니다", "utf-8") + "&url=" + url);
     }
+    
   }
 }
