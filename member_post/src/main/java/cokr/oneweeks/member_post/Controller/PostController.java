@@ -108,14 +108,6 @@ public class PostController {
       return "redirect:list"+ cri.getQs();
   }
   
-
-  // @RequestMapping(value = "msg", produces = {MediaType.TEXT_HTML_VALUE})
-  // public String msg(HttpServletResponse resp) {
-  //   resp.setContentType("text/html");
-  //     return "<h1>안녕</h1>";
-  // }
-  
-  
   
   
 }

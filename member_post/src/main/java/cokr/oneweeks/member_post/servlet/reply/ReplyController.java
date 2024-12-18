@@ -19,7 +19,7 @@ import cokr.oneweeks.member_post.service.ReplyServiceImpl;
 
 @WebServlet("/reply/*")
 public class ReplyController extends HttpServlet{
-	private ReplyService service = ReplyServiceImpl.getInstance();
+	// private ReplyService service = ReplyServiceImpl.getInstance();
 	// private   = new Builder().setDateFormat("yyyy/MM/dd-HH:mm:ss").create();
 
 	@Override
@@ -47,11 +47,11 @@ public class ReplyController extends HttpServlet{
 			}
 			   
 		   }
-		   ret = service.list(pno, cri, req.getSession().getAttribute("member"));
+		  //  ret = service.list(pno, cri, req.getSession().getAttribute("member"));
 	}
 	   else {
 		Long rno = Long.valueOf(uri);
-		ret = service.findBy(rno);
+		// ret = service.findBy(rno);
 	}
 	   	resp.setContentType("application/json; charset=utf-8");
 		// resp.getWriter().print(.toJson(ret));

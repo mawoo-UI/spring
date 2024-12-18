@@ -1,126 +1,86 @@
 package cokr.oneweeks.member_post.Controller;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
 import java.util.Map;
+import java.util.Optional;
 
-import javax.xml.crypto.Data;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import cokr.oneweeks.member_post.dto.Criteria;
-import cokr.oneweeks.member_post.service.PostService;
-import cokr.oneweeks.member_post.vo.MyVo;
-import cokr.oneweeks.member_post.vo.Post;
-import lombok.extern.log4j.Log4j2;
-
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import cokr.oneweeks.member_post.dto.ReplyCri;
+import cokr.oneweeks.member_post.service.ReplyService;
+import cokr.oneweeks.member_post.vo.Member;
+import cokr.oneweeks.member_post.vo.Reply;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
-// @Controller //반환성을강제
-@RestController// Controller역할 + 소유한 모든 메서드의 반환형태 @ResponseBody를 강제함
+@RestController
 @RequestMapping("reply")
 @Log4j2
+@AllArgsConstructor
 public class ReplyController {
+  private ReplyService service;
+  //목록 조회
+  @GetMapping({"list/{pno}","list/{pno}/{lastRno}","list/{pno}/{lastRno}/{amount}"})
+  public Map<?,?> list(@SessionAttribute(required = false, name = "member") Member member,
+    @PathVariable("pno") Long pno, ReplyCri cri,@PathVariable(required = false, name = "lastRno") Optional<Long> lastRno,
+    @PathVariable(required =  false, name = "amount") Optional<Integer> amount) {
+        cri.setAmount(amount.orElseGet(() -> 10));
+        cri.setLastRno(lastRno.orElse(0L));
+        log.info(cri);
+        return service.list(pno, cri, member);
+    }
+  //Optional/. 만 찍으면 조건식 직접 만들 수 있음(get사용)
+  //Or else라는게 있고, null인경우 or else안에있는값을 대체값으로 사용
+  //notnull일 경우 값을 그대로 쓴다.
 
-  // @RequestBody
-  // @PathVariable
-  // @ResponseBody
-  @RequestMapping("test")
-  public String test() {
-    log.info("도착 지점 확인 reply/test");
-    return "hello";
-  }
-
-  //void String ResponseEntity
-  //entity : 개체(요소)
-  @RequestMapping("re")
-  public ResponseEntity<String> re() {
-    // return ResponseEntity.notFound().build();
-    return new ResponseEntity<String>("본문", HttpStatus.NOT_FOUND);
-  }
-  @GetMapping(value = "arr")
-  public Integer[] getMethodName() {
-      return new Integer[] {3,4,5,6}; //Json,xml형식의 통신을 한다./Json이 우선순위가 더 높음
-  }
-
-  @GetMapping("list")
-  public List<String> list() {
-      List<String> list = new ArrayList<>();
-      list.add("가");
-      list.add("나");
-      list.add("다");
-      list.add("라");
-      return list;
-  }
-  @GetMapping("students")
-  public List<?> students() {
-    List<Map<?,?>> list = new ArrayList<>();
-    Map<String, Object> map = new HashMap<>();  
-    map.put("no", 1);
-    map.put("name", "새똥이");
-    map.put("score", 80);
-    list.add(map);
-    map = new HashMap<>();
-    map.put("no", 2);
-    map.put("name", "개똥이");
-    map.put("score", 80);
-    list.add(map);
-    return list;
-  }
-  @Autowired
-  private PostService postService;
-  @GetMapping("post")
-  public Post post() {
-    return postService.findBy(1L);
-  }
-  @GetMapping("mypost")
-  public Post myPost(Post post) {
-    
-      return post;
-  }
-  @GetMapping("p1")
-  public int[] p1(@RequestParam("arr") int[] arr) {
-      return arr;
-  }
-  @GetMapping("p2")
-  public List<?> p2(@RequestParam("arr") List<?> list) {
-      return list;
-  }
-  @InitBinder
-  public void init(WebDataBinder binder) {
-    binder.registerCustomEditor(Data.class,new CustomDateEditor(new SimpleDateFormat("yyyy_MM_dd"), false));
-  }
-
-  @GetMapping("myvo")
-  public MyVo my(MyVo myVo) {
-      return myVo;
-  }
-   
   
+  //단일 조회
+  @Operation(summary = "reply single select", description = "@PathVariable인 rno값을 입력 받고 해당 댓글을 json으로 리턴")
+  @GetMapping("{rno}")
+  public ResponseEntity<?> getMethodName(@PathVariable("rno") Long rno) {
+      return new ResponseEntity<>(service.findBy(rno),HttpStatus.OK);
+  }
   
+  //등록
+  @PostMapping
+  @Operation(summary = "댓글 작성", description = "댓글 작성을위해 필요한 값을 전달 받음. content,writer,게시글 번호",
+    responses = {
+      @ApiResponse(responseCode = "200", description = "작성성공", content = @Content(schema = @Schema(implementation = String.class))),
+      @ApiResponse(responseCode = "500", description = "작성실패")
+    }
+  )
+  public ResponseEntity<?> write(@RequestBody Reply reply) {
+    log.info(reply);
+    return service.write(reply) > 0 ? ResponseEntity.ok().body("success") : ResponseEntity.internalServerError().build();
+  }
+  //수정
+  @PutMapping
+  public ResponseEntity<?> modify (@RequestBody Reply reply) {
+      service.modify(reply);
+      return ResponseEntity.ok().body("success");
+  }
   
-  // public Map<?,?> map2() {
-  //   Map<String, Object> map2 = new HashMap<>();
-  //     map2.put("A", 1);
-  //     return map2;
-  // }
-  
+  //삭제
+  @Delete("{rno}")
+  public ResponseEntity<?> remove(@RequestParam Long rno) {
+      return ResponseEntity.ok().body("success");
+  }
   
 }
