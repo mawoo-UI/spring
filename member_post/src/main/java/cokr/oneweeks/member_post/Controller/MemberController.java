@@ -2,6 +2,8 @@ package cokr.oneweeks.member_post.Controller;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +20,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 
 
 
@@ -66,11 +65,11 @@ public class MemberController {
   
   @PostMapping("signin")
   public String postSignin(Member member,@Nullable @RequestParam(required = false, value="remember-id") String remember,
-    HttpSession session, RedirectAttributes rttr , HttpServletResponse resp
+    HttpSession session, RedirectAttributes rttr , HttpServletResponse resp,@RequestParam(value = "url", required = false) String url
   ) {
     log.info(remember);
     log.info(member);
-
+    log.info(url);
     
     if (service.login(member.getId(), member.getPw())) {
 
@@ -86,8 +85,12 @@ public class MemberController {
       }
       resp.addCookie(cookie);
 
-
-      return "redirect:/";
+      //2.redirect index
+      String redirectUrl = "/";
+      if (url != null) {
+        redirectUrl = url;
+      }
+      return "redirect:" + redirectUrl;
     }
       else {
         //실패
@@ -96,8 +99,9 @@ public class MemberController {
         session.setAttribute("member", resp);
 
         rttr.addFlashAttribute("msg", "failed");
-        return "redirect:signin";
+        return "redirect:/signin";
       }
+      
     }
     @RequestMapping("logout")
     public String requestMethodName(HttpSession session) {

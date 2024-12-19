@@ -29,10 +29,10 @@ public class PostServiceImpl implements PostService {
 	public int write(Post post) {
 			mapper.insert(post);
 			
-			// post.getAttachs().forEach(a -> {
-			// 	a.setPno(post.getPno());
-			// 	attachMapper.insert(a);
-			// });
+			post.getAttachs().forEach(a -> {
+				a.setPno(post.getPno());
+				attachMapper.insert(a);
+			});
 			
 			return 0;
 	}

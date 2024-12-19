@@ -24,6 +24,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,9 +80,10 @@ public class ReplyController {
   }
   
   //삭제
-  @Delete("{rno}")
-  public ResponseEntity<?> remove(@RequestParam Long rno) {
+  @DeleteMapping("{rno}")
+  public ResponseEntity<?> remove(@RequestParam("rno") Long rno) {
+      service.remove(rno);
       return ResponseEntity.ok().body("success");
   }
-  
+  // @RequestMapping(method = RequestMethod.DELETE)
 }

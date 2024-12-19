@@ -10,7 +10,7 @@ import jakarta.servlet.ServletContextListener;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
-
+  
   @Override
   public void addResourceHandlers(@SuppressWarnings("null") ResourceHandlerRegistry registry) {
     registry

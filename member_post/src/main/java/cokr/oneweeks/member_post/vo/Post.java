@@ -23,29 +23,8 @@ public class Post {
 	private Integer cno;
 	private Boolean attachFlag;
 
-	// private Long rootno;
-	// private Integer pdepth;
-	// private Integer porder;
-	
 	private List<Attach> attachs = new ArrayList<Attach>();
 
-	// public Post(Long pno, String title, String writer, String content, Long viewCount, Date regdate, Date updatedate,
-	// Integer cno, Boolean attachFlag ,Long rootno, Integer pdepth, Integer porder) {
-	// 	super();
-	// 	this.pno = pno;
-	// 	this.title = title;
-	// 	this.writer = writer;
-	// 	this.content = content;
-	// 	this.viewCount = viewCount;
-	// 	this.regdate = regdate;
-	// 	this.updatedate = updatedate;
-	// 	this.cno = cno;
-	// 	this.attachFlag = attachFlag;
-	// 	this.rootno = rootno;
-	// 	this.pdepth = pdepth;
-	// 	this.porder = porder;
-	// }
-	
 }
 
 

@@ -1,13 +1,12 @@
-package cokr.oneweeks.member_post.aop;
+package cokr.oneweeks.member_post.aop.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MyPost {
-  // String[] id() default "abcd";
-  String value() default "";
+@Target(ElementType.METHOD)
+public @interface SigninCheck {
+  
 }

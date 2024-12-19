@@ -1,7 +1,6 @@
 package cokr.oneweeks.member_post.Controller;
 
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import cokr.oneweeks.member_post.aop.MyPost;
-import cokr.oneweeks.member_post.aop.SigninCheck;
+import cokr.oneweeks.member_post.aop.annotation.MyPost;
+import cokr.oneweeks.member_post.aop.annotation.SigninCheck;
 import cokr.oneweeks.member_post.dto.Criteria;
 import cokr.oneweeks.member_post.dto.PageDto;
 import cokr.oneweeks.member_post.service.PostService;
 import cokr.oneweeks.member_post.vo.Member;
 import cokr.oneweeks.member_post.vo.Post;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -67,8 +65,8 @@ public class PostController {
   @GetMapping("modify")
   @SigninCheck
 
-  public void getMethodName(@RequestParam("pno") Long pno, Model model, Criteria cri,
-  @SessionAttribute(name = "member",required = false) Member member, String writer) {
+  public void modify(@RequestParam("pno") Long pno, Model model, Criteria cri,
+  @SessionAttribute(name = "member",required = false) Member member) {
       log.info(pno);
       log.info(cri);
       Post post = service.findBy(pno);
@@ -93,10 +91,10 @@ public class PostController {
   @PostMapping("modify")
   @SigninCheck @MyPost
   //여기
-  public String postMethodName(Post post, Criteria cri) {
+  public String postModify(Post post, Criteria cri) {
       log.info(post);      
       log.info(cri);
-      service.modify(post);
+      // service.modify(post);
       // log.info("pno");
       return "redirect:list?"+ cri.getQs2();
   }
@@ -105,7 +103,7 @@ public class PostController {
   @RequestMapping("remove")
   public String remove(@RequestParam("pno") Long pno, Criteria cri) {
       service.remove(pno);
-      return "redirect:list"+ cri.getQs();
+      return "redirect:list?"+ cri.getQs();
   }
   
   

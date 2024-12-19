@@ -24,7 +24,7 @@ public class CharsetFilter implements Filter{
 		request.setCharacterEncoding("utf-8");
 		
 //		실제 처리 (전처리)
-		log.info("filter 적용됨");
+		// log.info("filter 적용됨");
 		chain.doFilter(request, response);
 	}
 }

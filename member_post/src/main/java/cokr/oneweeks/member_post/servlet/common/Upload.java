@@ -34,7 +34,7 @@ public class Upload extends HttpServlet {
 	// 		factory.setRepository(new File(Commons.UPLOAD_PATH + File.separator + "tmp"));
 	// 		//실행시점이 아닌경우 상수는 소문자로
 	// 		ServletFileUpload upload = new ServletFileUpload(factory);
-	// 		List<Attach> attachs = new ArrayList<>();
+			// List<Attach> attachs = new ArrayList<>();
 	// 		try {
 	// 			List<FileItem> items = upload.parseRequest(req);
 	// 			for(FileItem item : items) {

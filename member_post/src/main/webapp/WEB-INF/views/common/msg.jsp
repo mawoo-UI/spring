@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <script>
-    alert('${msg}');
+    alert('${msg}' + '${url}');
     
     <c:choose>
       <c:when test = "${not empty url}" >
