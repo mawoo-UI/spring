@@ -140,3 +140,27 @@ ex: File file = new File("c:/upload/2024/12/19");
 ㄴ업로드 된걸로 테스트
 mapper.selectListByPath("2024/12/19");
 ㄴ이중 for문
+
+image라는 썸네일이 블린타입으로 true였을때 실행조건
+
+JDBC 
+low 매터?
+
+tx->트랜잭션/맵과 관련된 파일
+
+Job:해야 할 일
+
+Scheduler:일정
+
+Trigger: 발동 조건
+ㄴex : crick
+ㄴ스케줄러가 발동하기위한 조건을 Trigger이라고한다.
+
+(스케줄러)어플리케이션이 종료될때 까지 지속으로 동작 할 수있음.
+서버:상시구동이 원칙
+
+addAll():합집합
+retainAll(): 교집합
+removeAll():차집합
+containsAll(): 집합포함 여부(부분 집합)
+
