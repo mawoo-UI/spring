@@ -17,7 +17,7 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(callSuper = true)
 @Table(name = "tbl_guestbook")
 public class GuestbookEntity extends BaseEntity {
   @Id //Entity속성값이 jakarta꺼라서 맞춰서 작성

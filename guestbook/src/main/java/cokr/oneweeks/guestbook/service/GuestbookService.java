@@ -1,11 +1,19 @@
 package cokr.oneweeks.guestbook.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-@Service
-public class GuestbookService {
-  // private GuestbookRepository repository;
-} 
+import cokr.oneweeks.guestbook.domain.dto.GuestbookListDto;
+import cokr.oneweeks.guestbook.domain.dto.GuestbookModifyDto;
+import cokr.oneweeks.guestbook.domain.dto.GuestbookViewDto;
+import cokr.oneweeks.guestbook.domain.dto.GuestbookWriteDto;
+
+
+public interface GuestbookService {
+  void writer(GuestbookWriteDto dto);
+  void modify(GuestbookModifyDto dto);
+  void remove(Long gno);
+
+  List<GuestbookListDto> list();
+  GuestbookViewDto get(Long gno);
+}

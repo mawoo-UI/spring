@@ -1,7 +1,6 @@
 package cokr.oneweeks.guestbook.Controller;
 
 import java.time.LocalDateTime;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import cokr.oneweeks.guestbook.domain.SampleDto;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
