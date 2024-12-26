@@ -19,7 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Table(name = "tbl_guestbook")
-public class GuestbookEntity extends BaseEntity {
+public class Guestbook extends BaseEntity {
   @Id //Entity속성값이 jakarta꺼라서 맞춰서 작성
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long gno;

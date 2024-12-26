@@ -2,7 +2,7 @@ package cokr.oneweeks.guestbook.domain.dto;
 
 import java.time.LocalDateTime;
 
-import cokr.oneweeks.guestbook.domain.entity.GuestbookEntity;
+import cokr.oneweeks.guestbook.domain.entity.Guestbook;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class GuestbookListDto {
 
   
 
-  public GuestbookListDto (GuestbookEntity entity) {
+  public GuestbookListDto (Guestbook entity) {
     this.gno = entity.getGno();
     this.title = entity.getTitle();
     this.writer = entity.getWriter();

@@ -1,7 +1,7 @@
 package cokr.oneweeks.guestbook.domain.dto;
 
 
-import cokr.oneweeks.guestbook.domain.entity.GuestbookEntity;
+import cokr.oneweeks.guestbook.domain.entity.Guestbook;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,8 +21,8 @@ public class GuestbookWriteDto {
   private String writer;
   
 
-  public GuestbookEntity toEntity() {
-    return GuestbookEntity.builder()
+  public Guestbook toEntity() {
+    return Guestbook.builder()
     .title(title)
     .content(content)
     .writer(writer)
