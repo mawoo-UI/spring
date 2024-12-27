@@ -9,12 +9,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
+
 import cokr.oneweeks.guestbook.domain.dto.GuestbookDto;
-import cokr.oneweeks.guestbook.domain.dto.GuestbookModifyDto;
-import cokr.oneweeks.guestbook.domain.dto.GuestbookViewDto;
 import cokr.oneweeks.guestbook.domain.dto.PageRequestDto;
 import cokr.oneweeks.guestbook.domain.dto.PageResultDto;
 import cokr.oneweeks.guestbook.domain.entity.Guestbook;
+import cokr.oneweeks.guestbook.domain.entity.QGuestbook;
 import cokr.oneweeks.guestbook.repository.GuestRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,22 +29,19 @@ public class GuestbookServiceImpl implements GuestbookService {
   
 
   @Override
-  public GuestbookViewDto get(Long gno) {
+  public GuestbookDto read(Long gno) {
+    // if(!opt.isPresent()) {
+      //   return null;
+      // }
+      // return toDto(opt.get());
     Optional<Guestbook> opt = repository.findById(gno);
-    if (!opt.isPresent()) {
-      return null;
-    }
-    return new GuestbookViewDto(opt.get());
+    return opt.isPresent() ? toDto(opt.get()) : null;
   }
-
-  // @Override
-  // public List<GuestbookListDto> list() {
-  //   return repository.findAll().stream().map(GuestbookListDto::new).toList();
-  // }
+  
 
   @Override
-  public void modify(GuestbookModifyDto dto) {
-    repository.save(dto.toEntity());    
+  public void modify(GuestbookDto dto) {
+    repository.save(toEntity(dto));    
   }
 
   @Override
@@ -51,7 +50,7 @@ public class GuestbookServiceImpl implements GuestbookService {
   }
 
   @Override
-  public Long writer(GuestbookDto dto) {
+  public Long write(GuestbookDto dto) {
     Guestbook guestbook = toEntity(dto);
     log.info(guestbook);
     repository.save(guestbook);
@@ -61,13 +60,36 @@ public class GuestbookServiceImpl implements GuestbookService {
 
   @Override
   public PageResultDto<GuestbookDto, Guestbook> list(PageRequestDto dto) {
-    Pageable pageable = dto.getPageable(Sort.by(Direction.DESC,"gno"));
+    Pageable pageable = dto.getPageable(Sort.by(Direction.DESC, "gno"));
     Page<Guestbook> page = repository.findAll(pageable);
-    // Function<Guestbook, GuestbookDto> fn = e -> toDto(e); //ResultDto에서 필요해서씀
-    PageResultDto<GuestbookDto, Guestbook> resultDto = new PageResultDto<>(page, e -> toDto(e)); //인터페이스는 안먹음
+    // Function<Guestbook, GuestbookDto> fn = e -> toDto(e);
+    PageResultDto<GuestbookDto, Guestbook> resultDto =  new PageResultDto<>(page, e -> toDto(e));
     return resultDto;
-    //Page<E>를 Stream(으로 변환할 수 있음) .map(P).toList ↓
-    //List<D>
+  }
+
+  private BooleanBuilder getSearch(PageRequestDto requestDto){
+    String type = requestDto.getType();
+    BooleanBuilder booleanBuilder = new BooleanBuilder();
+    QGuestbook qGuestbook = QGuestbook.guestbook;
+    BooleanExpression expression = qGuestbook.gno.gt(0L);
+    booleanBuilder.and(expression);
+    if (type == null || type.trim().isEmpty()) {
+      return booleanBuilder;
+    }
+
+    BooleanBuilder conditionalBuilder = new BooleanBuilder();
+    String keyword = requestDto.getKeyword();
+    if (type.contains("T")) {
+      conditionalBuilder.or(qGuestbook.title.contains(keyword));
+    }
+    if (type.contains("C")) {
+      conditionalBuilder.or(qGuestbook.title.contains(keyword));
+    }
+    if (type.contains("W")) {
+      conditionalBuilder.or(qGuestbook.title.contains(keyword));
+    }
+    booleanBuilder.and(conditionalBuilder);
+    return booleanBuilder;
   }
   
 }

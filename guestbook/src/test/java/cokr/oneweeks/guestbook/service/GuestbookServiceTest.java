@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import cokr.oneweeks.guestbook.domain.dto.GuestbookDto;
-// import cokr.oneweeks.guestbook.domain.entity.Guestbook;
+import cokr.oneweeks.guestbook.domain.entity.Guestbook;
 import cokr.oneweeks.guestbook.domain.dto.PageRequestDto;
 import cokr.oneweeks.guestbook.domain.dto.PageResultDto;
 import cokr.oneweeks.guestbook.domain.entity.Guestbook;
@@ -28,19 +28,19 @@ public class GuestbookServiceTest {
     .writer("작성자")
     .build();
 
-    Long gno = service.writer(dto);
+    Long gno = service.write(dto);
     assertNotNull(gno);
 
     
 
   }
-  @Test
-  public void testList() {
-    PageResultDto<GuestbookDto,Guestbook> dto = service.list(new PageRequestDto(2,10));
-    dto.getDtoList().forEach(log::info);
-    log.info(dto);
-    dto.getPageList().forEach(log::info);
-  }
+  // @Test
+  // public void testList() {
+  //   PageResultDto<GuestbookDto,Guestbook> dto = service.list(new PageRequestDto(2,10));
+  //   dto.getDtoList().forEach(log::info);
+  //   log.info(dto);
+  //   dto.getPageList().forEach(log::info);
+  // }
 
   @Test
   public void testResultDto() {

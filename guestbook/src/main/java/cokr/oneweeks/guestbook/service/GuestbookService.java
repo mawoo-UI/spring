@@ -2,22 +2,20 @@ package cokr.oneweeks.guestbook.service;
 
 
 import cokr.oneweeks.guestbook.domain.dto.GuestbookDto;
-import cokr.oneweeks.guestbook.domain.dto.GuestbookModifyDto;
-import cokr.oneweeks.guestbook.domain.dto.GuestbookViewDto;
 import cokr.oneweeks.guestbook.domain.dto.PageRequestDto;
 import cokr.oneweeks.guestbook.domain.dto.PageResultDto;
 import cokr.oneweeks.guestbook.domain.entity.Guestbook;
 
 
 public interface GuestbookService {
-  Long writer(GuestbookDto dto);
-  PageResultDto<GuestbookDto, Guestbook> list(PageRequestDto dto);
-
-
-  void modify(GuestbookModifyDto dto);
+  Long write(GuestbookDto dto);
+  void modify(GuestbookDto dto);
   void remove(Long gno);
 
-  GuestbookViewDto get(Long gno);
+  PageResultDto<GuestbookDto, Guestbook> list(PageRequestDto dto);
+  GuestbookDto read(Long gno);
+  
+
           //시그니처 출력
   default Guestbook toEntity(GuestbookDto dto){ //(출구)
     return Guestbook.builder()
@@ -38,4 +36,5 @@ public interface GuestbookService {
     .modDate(en.getModDate())
     .build();
   }
+
 }

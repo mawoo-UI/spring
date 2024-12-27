@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+// import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
@@ -14,6 +15,8 @@ import lombok.Data;
 public class PageRequestDto {
   private int page;
   private int size;
+  private String type;
+  private String keyword;
 
   public PageRequestDto() {
     page = 1;
