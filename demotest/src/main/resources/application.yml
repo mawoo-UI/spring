@@ -1,0 +1,37 @@
+# logging:
+#     config: classpath:log4j2.yml
+server:
+  port: 8888
+spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths:
+      - src/main/java
+      - src/main/resources
+      - src/main/webapp
+      additional-exclude: static/**, templates/**
+    livereload:
+      enabled: true  
+  application:
+    name: demotest
+  datasource:
+    # driver-class-name: org.mariadb.jdbc.Driver
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    # url: jdbc:mariadb://np.oneweeks.co.kr:3306/post
+    url: jdbc:log4jdbc:mariadb://np.oneweeks.co.kr:3306/post
+    username: sample
+    password: 1234
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+mybatis:
+  mapper-locations:
+  - classpath:mapper/*.xml
+  type-aliases-package: cokr.oneweeks.demotest.vo
+  configuration:
+    map-underscore-to-camel-case: true
+springdoc:
+  swagger-ui:
+    path: /swag

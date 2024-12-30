@@ -1,7 +1,7 @@
 package cokr.oneweeks.guestbook.service;
 
 import java.util.Optional;
-import java.util.function.Function;
+// import java.util.function.Function;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,9 +25,28 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @AllArgsConstructor
 public class GuestbookServiceImpl implements GuestbookService {
-  private GuestRepository repository;
+  private final GuestRepository repository;
   
+  
+  @Override
+  public Long write(GuestbookDto dto) {
+    Guestbook guestbook = toEntity(dto);
+    log.info(guestbook);
+    repository.save(guestbook);
+    log.info(guestbook);
+    return guestbook.getGno();
+  }
 
+  @Override
+  public void remove(Long gno) {
+    repository.deleteById(gno);
+  }
+
+  @Override
+  public void modify(GuestbookDto dto) {
+    repository.save(toEntity(dto));    
+
+  }
   @Override
   public GuestbookDto read(Long gno) {
     // if(!opt.isPresent()) {
@@ -38,26 +57,6 @@ public class GuestbookServiceImpl implements GuestbookService {
     return opt.isPresent() ? toDto(opt.get()) : null;
   }
   
-
-  @Override
-  public void modify(GuestbookDto dto) {
-    repository.save(toEntity(dto));    
-  }
-
-  @Override
-  public void remove(Long gno) {
-    repository.deleteById(gno);
-  }
-
-  @Override
-  public Long write(GuestbookDto dto) {
-    Guestbook guestbook = toEntity(dto);
-    log.info(guestbook);
-    repository.save(guestbook);
-    log.info(guestbook);
-    return guestbook.getGno();
-  }
-
   @Override
   public PageResultDto<GuestbookDto, Guestbook> list(PageRequestDto dto) {
     Pageable pageable = dto.getPageable(Sort.by(Direction.DESC, "gno"));
@@ -73,6 +72,7 @@ public class GuestbookServiceImpl implements GuestbookService {
     QGuestbook qGuestbook = QGuestbook.guestbook;
     BooleanExpression expression = qGuestbook.gno.gt(0L);
     booleanBuilder.and(expression);
+
     if (type == null || type.trim().isEmpty()) {
       return booleanBuilder;
     }

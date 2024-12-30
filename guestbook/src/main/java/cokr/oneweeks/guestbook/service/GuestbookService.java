@@ -32,8 +32,8 @@ public interface GuestbookService {
     .title(en.getTitle())
     .content(en.getContent())
     .writer(en.getWriter())
-    .regDate(en.getRegDate())
     .modDate(en.getModDate())
+    .regDate(en.getRegDate())
     .build();
   }
 

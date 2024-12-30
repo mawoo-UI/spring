@@ -1,13 +1,13 @@
-package cokr.oneweeks.member_post;
+package cokr.oneweeks.demotest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MemberPostApplication {
+public class DemotestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MemberPostApplication.class, args);
+		SpringApplication.run(DemotestApplication.class, args);
 	}
 
 }

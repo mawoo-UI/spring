@@ -34,6 +34,7 @@
             <input type="modDate" class="form-control" id="modDate" placeholder="Enter modDate" name="modDate" readonly th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd')}">
           </div>
             <input type="hidden" name="page" th:value="${pageDto.page}">
+            
             <button class="btn btn-outline-dark">Modify</button>
             <button class="btn btn-secondary" formaction="remove">Remove</button>
             <a th:href="@{/guestbook/list(page=${pageDto.page})}" class="btn btn-dark">List</a>

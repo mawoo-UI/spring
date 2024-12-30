@@ -19,7 +19,12 @@ public class GuestbookWriteDto {
   private String title;
   private String content;
   private String writer;
-  
+
+  public GuestbookWriteDto(Guestbook entity) {
+    this.title = entity.getTitle();
+    this.content = entity.getContent();
+    this.writer = entity.getWriter();
+  }
 
   public Guestbook toEntity() {
     return Guestbook.builder()

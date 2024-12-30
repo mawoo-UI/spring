@@ -28,6 +28,7 @@ public class GuestbookViewDto {
   public GuestbookViewDto(Guestbook entity) {
     this.gno =  entity.getGno();
     this.title =  entity.getTitle();
+    this.content = entity.getContent();
     this.writer = entity.getWriter();
     this.regDate = entity.getRegDate();
     this.modDate = entity.getModDate();
