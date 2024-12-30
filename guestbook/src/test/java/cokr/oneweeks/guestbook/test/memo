@@ -96,3 +96,55 @@ response Body or lastController이 올 수 있다.
 (맨앞 별)반환타입이 모든 반환타입
 
 리파지토리에있는게 서비스로 들어갈 내용
+
+and연산자가 더 빠름
+or가 추가로 붙기에 독립적임
+에스케이프 문자 생략시 기본으로 역슬러쉬(\)
+test에서는
+ 트랜잭션통해 rollback은 가능
+테스트에서는 @Transactional 꼭
+
+2024-12-30T11:08:14.005+09:00 ERROR 3980 --- [guestbook] [nio-8080-exec-7] o.t.TemplateEngine                       : [THYMELEAF][http-nio-8080-exec-7] Exception processing template "/guestbook/list": Error resolving template [/guestbook/list], template might not exist or might not be accessible by any of the configured Template Resolvers
+many to one
+eager
+lazy
+
+팔로우,쪽지/다대다/pk가 한개 이상이됨
+
+회원알림공지/일대 다
+ㄴ여러사람에 의해 쓸 수 있고 한사람이 쓸 수 있음
+
+
+pk를 fk가 참조하는경우가 있는데 /다인쪽이 1의 대상을 참조(차일드 테이블)
+회원쪽이 1 /유니크 기반으로(pk 만족되어있음)
+ㄴ게시글과 댓글도 동일함/일대다
+ㄴ게시글의 pk참조
+ㄴ컴포지션(?)/유사포함
+
+JPA는 객체지향이라서 DB와는 다름
+ㄴ게시글이 회원을 참조 하게 하는지
+ㄴ게시글과 첨부파일의 관계(게시글이 있어야하는 테이블)게시글도 첨부파일 존재를 알았음
+ㄴ단일타입으론 불가(여러개가 올 수 있다는걸 알아야함)/상호참조
+ㄴ엔티티에 따라 댓글도 구현
+
+
+바로 처리가 필요하지 않다면 지연로딩
+
+
+기본이 LAZY임
+
+
+//2024-12-30/dto 삭제 및 BoardDto추가
+
+
+탑다운하면 다 가져옴
+
+
+
+test코드에서 sava부분 오류
+sql댓글등 내용 안들어감
+
+
+
+
+

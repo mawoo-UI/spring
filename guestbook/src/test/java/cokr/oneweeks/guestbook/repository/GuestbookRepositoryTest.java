@@ -18,6 +18,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.extern.log4j.Log4j2;
 import cokr.oneweeks.guestbook.domain.entity.Guestbook;
 import cokr.oneweeks.guestbook.domain.entity.QGuestbook;
+import jakarta.transaction.Transactional;
 
 @SpringBootTest
 @Log4j2
@@ -31,13 +32,14 @@ public class GuestbookRepositoryTest {
   }
   
   @Test
+  @Transactional
   public void testInsert() {
     repository.saveAll(
     IntStream.rangeClosed(1, 300).mapToObj(i->{
       return Guestbook.builder()
       .title("제목"+i)
       .content("내용"+i)
-      .writer("작성자"+(i%10))
+      .writer("작성자"+ (i%10))
       .build();
     }).toList()
     );

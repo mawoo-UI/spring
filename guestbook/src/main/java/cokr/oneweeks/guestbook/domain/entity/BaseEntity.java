@@ -17,13 +17,15 @@ import lombok.ToString;
 @Getter
 @ToString
 public class BaseEntity {
+
   @CreatedDate
   @Column(name = "regdate",updatable = false) //updatable = false:외부적으로 못쓰게하는것
   private LocalDateTime regDate;
 
+  // Rembrandt
   @LastModifiedDate
   @Column(name = "moddate")
   private LocalDateTime modDate;
-
+  
 
 }

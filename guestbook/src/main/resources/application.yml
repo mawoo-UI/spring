@@ -16,6 +16,8 @@ spring:
 
   thymeleaf:
     cache: false
+    prefix: classpath:/ templates/
+    suffix: .html
 
   devtools:
     restart:
@@ -27,4 +29,5 @@ spring:
 # server:
 #   servlet:
 #     context-path: /guestbook
+
       

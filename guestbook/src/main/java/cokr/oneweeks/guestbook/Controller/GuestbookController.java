@@ -1,8 +1,8 @@
 package cokr.oneweeks.guestbook.Controller;
 
-// import javax.inject.Inject;
+import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import cokr.oneweeks.guestbook.domain.dto.GuestbookDto;
 import cokr.oneweeks.guestbook.domain.dto.PageRequestDto;
 import cokr.oneweeks.guestbook.service.GuestbookService;
-// import jakarta.inject.Inject;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,13 +23,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("guestbook")
 @Log4j2
 public class GuestbookController {
-  @Autowired
-  // @Inject //Autowired와 같은기능함
+  // @Autowired
+  @Inject //Autowired와 같은기능함
   private GuestbookService service;
 
   @GetMapping({"", "list"})
   public String list(Model model, PageRequestDto dto) {
-    // log.info("?");
+
     model.addAttribute("result", service.list(dto));
     return "/guestbook/list";
   }
@@ -55,13 +54,17 @@ public class GuestbookController {
   public String modify(GuestbookDto dto, PageRequestDto pageDto, RedirectAttributes rttr) {
     service.modify(dto);
     rttr.addAttribute("page", pageDto.getPage());
+    rttr.addAttribute("type", pageDto.getType());
+    rttr.addAttribute("keyword", pageDto.getKeyword());
     return "redirect:list";
   }
   
   @PostMapping("remove")
-  public String remove(Long gno, PageRequestDto pageDto, RedirectAttributes rttr) {
-    service.remove(gno);
-    rttr.addAttribute("page", pageDto.getPage());
+  public String remove(GuestbookDto dto, PageRequestDto pageDto, RedirectAttributes rttr) {
+    service.remove(dto.getGno());
+    rttr.addAttribute("page", 1);
+    rttr.addAttribute("type", pageDto.getType());
+    rttr.addAttribute("keyword", pageDto.getKeyword());
     return "redirect:list";
   }
 }
