@@ -1,14 +1,16 @@
 package cokr.oneweeks.guestbook.domain.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
-@Builder
+@Builder 
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardDto {
@@ -17,7 +19,8 @@ public class BoardDto {
   private String content;
   private String memberEmail;
   private String memberName;
-  private LocalDate regDate;
-  private LocalDate modDate;
+  private LocalDateTime regDate;
+  private LocalDateTime modDate;
   private int replyCnt;
+
 }

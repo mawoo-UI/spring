@@ -8,11 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-import cokr.oneweeks.guestbook.domain.entity.Member;
+import cokr.oneweeks.guestbook.domain.entity.Board;
+import cokr.oneweeks.guestbook.repository.search.SearchBoardRepository;
 
-
-public interface BoardRepository extends JpaRepository<Member, String>{
+@Repository
+public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoardRepository{
   @Query("select b,m from tbl_board b left join member m where b.bno = :bno")
   Object getBoardWithMember(@Param("bno") Long bno);
 
@@ -40,5 +42,9 @@ public interface BoardRepository extends JpaRepository<Member, String>{
         "where b.bno = :bno\r\n" //
         )
   Object[] getBoardByBno( @Param("bno") Long bno);
+
+//   void save(Board entity);
+
+//   void deleteById(Long bno);
 
 }

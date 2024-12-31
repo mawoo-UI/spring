@@ -12,13 +12,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Entity
+@Entity(name = "tbl_reply")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @ToString
-@Table(name = "tbl_reply")
+@Table
 public class Reply extends BaseEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

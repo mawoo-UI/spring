@@ -39,7 +39,7 @@
                <th>[[${g.gno}]]</th>
                <td><a th:href="@{/guestbook/read(gno=${g.gno}, page=${result.page},
                   type=${pageRequestDto.type},
-                  keyword${pageRequestDto.keyword})}">[[${g.title}]]</a></td>
+                  keyword=${pageRequestDto.keyword})}">[[${g.title}]]</a></td>
                <td>[[${g.writer}]]</td>
                <td>[[${#temporals.format(g.regDate, 'yyyy/MM/dd')}]]</td>
               </tr>
@@ -58,12 +58,12 @@
             <li th:class="'page-item' + ${result.page == p ? 'active' : ''}" th:each="p : ${result.pageList}">
               <a class="page-link" th:href="@{/guestbook/list(page=${p},
               type=${pageRequestDto.type},
-              keyword${pageRequestDto.keyword})}">[[${p}]]</a>
+              keyword=${pageRequestDto.keyword})}">[[${p}]]</a>
             </li>
        
             <li class="page-item"th:if="${result.next}"><a class="page-link" th:href="@{/guestbook/list(page=${result.end + 1},
               type=${pageRequestDto.type},
-              keyword${pageRequestDto.keyword})}">Next</a></li>
+              keyword=${pageRequestDto.keyword})}">Next</a></li>
         </ul>
         <!-- The Modal -->
         <div class="modal" id="myModal">

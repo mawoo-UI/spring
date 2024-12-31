@@ -1,8 +1,8 @@
 package cokr.oneweeks.guestbook.Controller;
 
-import javax.inject.Inject;
+// import javax.inject.Inject;
 
-// import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,15 +23,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("guestbook")
 @Log4j2
 public class GuestbookController {
-  // @Autowired
-  @Inject //Autowired와 같은기능함
+  @Autowired
+  // @Inject //Autowired와 같은기능함
   private GuestbookService service;
 
   @GetMapping({"", "list"})
   public String list(Model model, PageRequestDto dto) {
 
     model.addAttribute("result", service.list(dto));
-    return "/guestbook/list";
+    return "guestbook/list";
   }
   
   @GetMapping("register")

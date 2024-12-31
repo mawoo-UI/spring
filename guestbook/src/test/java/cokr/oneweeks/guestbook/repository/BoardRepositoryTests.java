@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.annotation.Rollback;
@@ -65,31 +66,6 @@ public class BoardRepositoryTests {
     
     // log.info(board.getMember());
   }
-
-  @Test
-  public void testGetBoardWithMember() {
-    Object result = repository.getBoardWithMember(2L);
-    Object[] arr = (Object[]) result;
-    log.info(Arrays.toString(arr));
-  }
-  @Test
-  public void testGetBoardByBno() {
-    Object[] arr = repository.getBoardByBno(2L);
-    log.info(Arrays.toString(arr));
-  }
-  @Test
-  public void testGetBoardWithWithReply() {
-    List<Object[]> result = repository.getBoardWithReply(3L);
-    result.forEach(arr -> log.info(Arrays.toString(arr)));
-  }
-  @Test
-  public void testGetBoardWithReplyCount() {
-    Pageable pageable = PageRequest.of(1, 10, Sort.by(Direction.DESC, "bno"));
-    Page<Object[]> result = repository.getBoardWithReplyCount(pageable);
-    result.forEach(arr -> log.info(Arrays.toString(arr)));
-  }
-
-
   @Test
   public void testModify() {
    
@@ -101,4 +77,40 @@ public class BoardRepositoryTests {
   public void testQuerydsl() {
  
   }
+
+  @Test
+  public void testGetBoardWithMember() {
+    Object result = repository.getBoardWithMember(2L);
+    Object[] arr = (Object[]) result;
+    log.info(Arrays.toString(arr));
+  }
+  @Test
+  public void testGetBoardWithWithReply() {
+    // List<Object[]> result = repository.getBoardWithReply(3L);
+    // result.forEach(arr -> log.info(Arrays.toString(arr)));
+  }
+  @Test
+  public void testGetBoardWithReplyCount() {
+    Pageable pageable = PageRequest.of(1, 10, Sort.by(Direction.DESC, "bno"));
+    Page<Object[]> result = repository.getBoardWithReplyCount(pageable);
+    result.forEach(arr -> log.info(Arrays.toString(arr)));
+  }
+  @Test
+  public void testGetBoardByBno() {
+    Object[] result = (Object[])repository.getBoardByBno(3L);
+    log.info(Arrays.toString(result));
+  }
+
+
+  @Test
+  public void testSearch1() {
+    repository.search1();
+  }
+  @Test
+  public void testSearchPage() {
+    repository.searPage("TC", "1", PageRequest.ofSize(10));
+    PageRequest.of(0, 10, Sort.by(Direction.DESC, "bno","title"));
+  }
+
+
 }

@@ -33,7 +33,7 @@ public class ReplyRepositoryTests {
       .replyer("replyer" + i)
       .board(Board.builder().bno(0L+((int) (Math.random() * 99)+1)).build())
       .build();
-      repository.save(reply);
+      // repository.save(reply);
     });
   }
   @Test
@@ -56,5 +56,15 @@ public class ReplyRepositoryTests {
   @Test
   public void testQuerydsl() {
  
+  }
+  @Test
+  public void testDelete() {
+    
+  }
+  @Test
+  @Transactional
+  @Rollback(false)
+  public void testDeleteBno() {
+    repository.deleteByBoardBno(2L);
   }
 }

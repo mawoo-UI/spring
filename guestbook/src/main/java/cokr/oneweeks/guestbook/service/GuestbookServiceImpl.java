@@ -18,6 +18,7 @@ import cokr.oneweeks.guestbook.domain.dto.PageResultDto;
 import cokr.oneweeks.guestbook.domain.entity.Guestbook;
 import cokr.oneweeks.guestbook.domain.entity.QGuestbook;
 import cokr.oneweeks.guestbook.repository.GuestRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -38,6 +39,7 @@ public class GuestbookServiceImpl implements GuestbookService {
   }
 
   @Override
+  @Transactional
   public void remove(Long gno) {
     repository.deleteById(gno);
   }
@@ -61,6 +63,7 @@ public class GuestbookServiceImpl implements GuestbookService {
   public PageResultDto<GuestbookDto, Guestbook> list(PageRequestDto dto) {
     Pageable pageable = dto.getPageable(Sort.by(Direction.DESC, "gno"));
     BooleanBuilder booleanBuilder = getSearch(dto);
+    
     Page<Guestbook> page = repository.findAll(booleanBuilder, pageable);
     // Function<Guestbook, GuestbookDto> fn = e -> toDto(e);
     PageResultDto<GuestbookDto, Guestbook> resultDto =  new PageResultDto<>(page, e -> toDto(e));
