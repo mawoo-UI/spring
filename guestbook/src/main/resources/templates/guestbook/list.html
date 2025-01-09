@@ -5,7 +5,6 @@
         <h1>Guest Book List <span><a th:href="@{/guestbook/register}"><button class="btn btn-outline-primary">REGISTER</button></a></span></h1>
         <!-- 검색창 시작-->
         <form>
-            <div>
               <div class="form-check float-start clearfix me-4">
                 <input class="form-check-input" type="checkbox" id="title" name="type" value="T" checked>
                 <label class="form-check-label" for="title">Title</label>
@@ -18,17 +17,16 @@
                 <input class="form-check-input" type="checkbox" id="Writer" name="type" value="W">
                 <label class="form-check-label" for="writer">Writer</label>
               </div>
-            </div>
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Search" name="keyword">
-              <button class="btn btn-success" type="submit">Go</button>
+              <input type="text" class="form-control" name="keyword" placeholder="Input keyword">
+              <button class="btn btn-success" type="submit">Search</button>
             </div>
         </form>
 
         <table class="table table-striped">
           <thead>
             <tr>
-              <th></th>
+              <th>#</th>
               <th>title</th>
               <th>writer</th>
               <th>regdate</th>
@@ -55,10 +53,12 @@
               keyword=${pageRequestDto.keyword},
               )}">Previous</a></li>
 
-            <li th:class="'page-item' + ${result.page == p ? 'active' : ''}" th:each="p : ${result.pageList}">
-              <a class="page-link" th:href="@{/guestbook/list(page=${p},
-              type=${pageRequestDto.type},
-              keyword=${pageRequestDto.keyword})}">[[${p}]]</a>
+            <li th:class="'page-item ' + ${result.page == p ? 'active' : ''}" th:each="p : ${result.pageList}">
+              <a class="page-link" th:href="@{/guestbook/list(
+                page=${p},
+                type=${pageRequestDto.type},
+                keyword=${pageRequestDto.keyword}
+                )}">[[${p}]]</a>
             </li>
        
             <li class="page-item"th:if="${result.next}"><a class="page-link" th:href="@{/guestbook/list(page=${result.end + 1},
@@ -89,7 +89,7 @@
             </div>
         </div>
         <script>
-          let msg = /* [[${msg}]] */ "";
+          let msg =  [[${msg}]];  //*""//*;
           console.log(msg);
           if(msg) {
             var myModal = new bootstrap.Modal(document.querySelector(".modal"));

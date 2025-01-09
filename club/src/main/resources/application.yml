@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: club
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    # driver-class-name: org.mariadb.jdbc.Driver
+    # url: jdbc:mariadb://np.oneweeks.co.kr:3306/guestbook
+    url: jdbc:log4jdbc:mariadb://np.oneweeks.co.kr:3306/guestbook
+    username: guestbook
+    password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+      # database-platform: org.hibernate.dialect.MariaDBialect
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    mode: html
+
+  devtools:
+    restart:
+      enabled: true
+      additional-paths:
+      - src/main/java
+      - src/main/resources
+      - templates
+    
+  securitiy:
+  user:
+    name: user1
+    password: $81ae35bb-156b-4404-bb73-fc6bf0432e17 #1234
+    roles:
+    - USER
+  

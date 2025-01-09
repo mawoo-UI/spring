@@ -22,12 +22,14 @@ import lombok.ToString;
 public class Guestbook extends BaseEntity {
   @Id //Entity속성값이 jakarta꺼라서 맞춰서 작성
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  
   private Long gno;
+  
   @Column(nullable = false, length = 100) //길이값,NotNull할것/
   private String title;
   @Column(nullable = false, length = 1500)  
   private String content;
   @Column(nullable = false, length = 50)
   private String writer;
+  
+  
 }
