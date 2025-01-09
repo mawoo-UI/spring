@@ -36,7 +36,8 @@ public class SecurityConfig {
           )
           .formLogin(f -> f.permitAll())
            // 기본 로그인 폼 활성화
-          .logout(l -> l.logoutUrl("/member/signout"));
+          .logout(l -> l.logoutUrl("/member/signout"))
+          .oauth2Login(Customizer.withDefaults());
           // .logout(null)
           // .formLogin(null)
           // .

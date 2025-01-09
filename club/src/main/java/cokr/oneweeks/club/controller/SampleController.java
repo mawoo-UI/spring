@@ -35,6 +35,7 @@ public class SampleController {
     log.info("ex admin");
   }
   @GetMapping("api")
+  //AIzaSyDeKCW4gni-QnM5gYskOT7D3apKrRUpLYU ////
   @RequestMapping
   public AuthMemberDto getMethdName(@AuthenticationPrincipal AuthMemberDto dto) {
       return dto;
