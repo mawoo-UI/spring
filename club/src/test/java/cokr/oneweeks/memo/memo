@@ -1,0 +1,31 @@
+1.파일
+2.인증
+3.채팅
+--------------------------------------------------
+yml 변경시
+driver class name 등 변경이된다면 
+url등 함께 변경되는부분 확인
+
+빌드 옵션에대해서 뭘처리할거라는것도 확인
+user Details Service
+ㄴ 스프링 시큐리티의 핵심개념은 인증과 인가 이다.
+
+페이지 소스에서 csrf 에 있는 value는 토큰임
+정확도가 높으려면 관계형DB
+
+빠른걸 희망한다면(정확도는 떨어짐) 
+다른DB (로깅관련들)
+-----------------------
+나갈땐 exit
+sudo apt upgrade -y
+ㄴ업그레이드 모두 Yes
+
+
+------DB---------
+create database 이름 character set utf8mb4 collate utf8mb4_unicode_ci
+create user '이름'@'localhost' identified by '1234'
+grant all privileges on 이름.* to '아이디f'@'%'
+flush privileges;
+
+
+
