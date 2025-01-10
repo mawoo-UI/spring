@@ -7,15 +7,19 @@
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
-    <h1>For All </h1>
+    <h1> All </h1>
     <div>
       <a href="all">all</a>
       <a href="member">member</a>
       <a href="admin">admin</a>
+      <a href="/member/signout">로그아웃</a>
       <div sec:authorize="hasRole('USER')">USER ROLE</div>
       <div sec:authorize="hasRole('MANAGER')">MANAGER ROLE</div>
       <div sec:authorize="hasRole('ADMIN')">ADMIN ROLE</div>
-      <div sec:authentication="principal"></div>
+      <!-- <div sec:authentication="principal.username"> -->
+      <!-- <div sec:authentication="principal"></div>
+      <div sec:authentication="isAuthenticated()"></div>
+       <div sec:authentication="principal.password"></div> -->
     </div>
 </body>
 </html>
