@@ -13,13 +13,13 @@
     <a href="member">member</a>
     <a href="admin">admin</a>
     <a href="/member/signout">로그아웃</a>
-  </div>
     <div sec:authorize="hasRole('USER')">USER ROLE</div>
     <div sec:authorize="hasRole('MANAGER')">MANAGER ROLE</div>
     <div sec:authorize="hasRole('ADMIN')">ADMIN ROLE</div>
     <div sec:authentication="principal"></div>
     <div sec:authentication="principal.username"></div>
     <div sec:authentication="principal.authorities"></div>
+  </div>
 
 </body>
 </html>

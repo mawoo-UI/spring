@@ -1,5 +1,6 @@
 package cokr.oneweeks.club.security.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +16,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Service
 public class MyMemberUserDetailsService implements UserDetailsService{
+  @Autowired
   private MemberRepository repository;
 
   @Override
@@ -25,8 +27,11 @@ public class MyMemberUserDetailsService implements UserDetailsService{
     if (member == null) {
       throw new UsernameNotFoundException(username);
     }
-    AuthMemberDto authMemberDto = new AuthMemberDto(member.getEmail(),member.getPassword(),member.getMno(),member.isFromSocial()
-  ,member.getName() ,member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name())).toList());
+    log.info(member);
+    log.info(member.getPassword());
+    log.info(member.getRoleSet());
+    AuthMemberDto authMemberDto = new AuthMemberDto(member.getEmail(), member.getPassword(), member.getMno() ,member.getFromSocial()
+      ,member.getName(), member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name())).toList());
     
 
     return null;
