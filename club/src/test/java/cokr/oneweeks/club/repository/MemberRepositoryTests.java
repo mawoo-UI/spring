@@ -1,6 +1,7 @@
 package cokr.oneweeks.club.repository;
 
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,12 @@ public class MemberRepositoryTests {
 
     // UserDetailsService service;
     // User user;
+  }
+
+
+  @Test
+  public void testDelete(){
+    LongStream.rangeClosed(101, 301).forEach(l -> repository.deleteById(l));
   }
 
 }

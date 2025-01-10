@@ -30,11 +30,10 @@ public class MyMemberUserDetailsService implements UserDetailsService{
     log.info(member);
     log.info(member.getPassword());
     log.info(member.getRoleSet());
-    AuthMemberDto authMemberDto = new AuthMemberDto(member.getEmail(), member.getPassword(), member.getMno() ,member.getFromSocial()
-      ,member.getName(), member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name())).toList());
+    AuthMemberDto authMemberDto = new AuthMemberDto(member.getEmail(), member.getPassword(), member.getMno(), member.getFromSocial()
+    , member.getName(), member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name())).toList());
     
-
-    return null;
+    return authMemberDto;
   }
   
 }

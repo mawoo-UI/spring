@@ -1,5 +1,6 @@
 package cokr.oneweeks.club.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cokr.oneweeks.club.security.dto.AuthMemberDto;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -35,16 +38,28 @@ public class SampleController {
     log.info("ex member");
   }
   @GetMapping("admin")
+  @PreAuthorize("hasRole('ADMIN')")
   public void exAdmin(@AuthenticationPrincipal AuthMemberDto dto) {
     log.info(dto);
     log.info("ex admin");
   }
 
   @GetMapping("api")
+  @PreAuthorize("isAuthenticated()")
+  // @PreAuthorize("isAnonymous()")
   //AIzaSyDeKCW4gni-QnM5gYskOT7D3apKrRUpLYU ////
   @ResponseBody
   public AuthMemberDto getMethdName(@AuthenticationPrincipal AuthMemberDto dto) {
       return dto;
   }
+
+  @GetMapping("exMemberOnly")
+  @ResponseBody
+  @PreAuthorize("#dto != null && #dto.username eq \"user100oneweeks.cokr\"")
+  public String exMemberOnly(@AuthenticationPrincipal AuthMemberDto dto) {
+    log.info(dto.getUsername());
+      return dto.getEmail();
+  }
+  
   
 }

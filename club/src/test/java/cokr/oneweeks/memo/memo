@@ -28,4 +28,4 @@ grant all privileges on 이름.* to '아이디f'@'%'
 flush privileges;
 
 
-
+@ID 사용시에 import jakarta.persistence.Id; //자카르타로 사용해야함
