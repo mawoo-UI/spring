@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cokr.oneweeks.guestbook.domain.dto.GuestbookDto;
 import cokr.oneweeks.guestbook.domain.dto.PageRequestDto;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -55,6 +55,8 @@ public class GuestbookController {
   public String modify(GuestbookDto dto, PageRequestDto pageDto, RedirectAttributes rttr) {
     service.modify(dto);
     rttr.addAttribute("page", pageDto.getPage());
+    rttr.addAttribute("type", pageDto.getType());
+    rttr.addAttribute("keyword", pageDto.getKeyword());
     return "redirect:list";
   }
   
@@ -62,6 +64,9 @@ public class GuestbookController {
   public String remove(Long gno, PageRequestDto pageDto, RedirectAttributes rttr) {
     service.remove(gno);
     rttr.addAttribute("page", pageDto.getPage());
+    rttr.addAttribute("type", pageDto.getType());
+    rttr.addAttribute("keyword", pageDto.getKeyword());
     return "redirect:list";
   }
+  
 }
