@@ -29,3 +29,11 @@ flush privileges;
 
 
 @ID 사용시에 import jakarta.persistence.Id; //자카르타로 사용해야함
+클라이언트가 Authorization 헤더의 값으로 이용할 데이터를 전송한다.
+
+
+필터가 동작하기전에 Bean을 주입해야함
+ㄴ그러면 다른 Bean 생성자를 제어해야함(순서 매우매우 중요)
+
+
+JWT 사용할때는 평문이라서 https 로 사용해야함
