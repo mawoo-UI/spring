@@ -2,7 +2,7 @@ package cokr.oneweeks.club.security.filter;
 
 import java.io.IOException;
 
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -20,13 +20,18 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter{
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException, IOException, ServletException {
-    log.info("============================= attemptAuthentication() ================================");
+    log.info("============================= ApiLoginFilter.attemptAuthentication() ================================");
     String email = request.getParameter("email");
     String pw = "1234";
+    
 
-    if (email == null) {
-      throw new BadCredentialsException("email cannot be null");
-    }
-    return null;
+    log.info("email :" + email);
+    log.info("pw :" + pw);
+    // if (email == null) {
+    //   throw new BadCredentialsException("email cannot be null");
+    // }
+    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, pw);
+    log.info(authenticationToken.getPrincipal());
+    return getAuthenticationManager().authenticate(authenticationToken);
   }
 }
