@@ -16,6 +16,11 @@ import lombok.extern.log4j.Log4j2;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+<<<<<<< HEAD
+=======
+
+import lombok.extern.log4j.Log4j2;
+>>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -60,11 +65,18 @@ public class GuestbookController {
   }
   
   @PostMapping("remove")
+<<<<<<< HEAD
   public String remove(GuestbookDto dto, PageRequestDto pageDto, RedirectAttributes rttr) {
     service.remove(dto.getGno());
     rttr.addAttribute("page", 1);
+=======
+  public String remove(Long gno, PageRequestDto pageDto, RedirectAttributes rttr) {
+    service.remove(gno);
+    rttr.addAttribute("page", pageDto.getPage());
+>>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
     rttr.addAttribute("type", pageDto.getType());
     rttr.addAttribute("keyword", pageDto.getKeyword());
     return "redirect:list";
   }
+  
 }

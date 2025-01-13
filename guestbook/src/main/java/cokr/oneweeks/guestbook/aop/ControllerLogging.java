@@ -29,7 +29,7 @@ public class ControllerLogging {
     log.info(str);
     Stream.of(args).filter(o -> {
       String name = o.getClass().getName();
-      return name.contains("com.eeerrorcode") || name.contains("java.lang");
+      return name.contains("cokr.oneweeks") || name.contains("java.lang");
     }).forEach(log::info);
     log.info("**************************** controller logger end *******************************");
   }

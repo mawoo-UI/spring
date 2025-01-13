@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+<<<<<<< HEAD
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import com.querydsl.core.BooleanBuilder;
@@ -15,11 +16,26 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.JPQLQuery;
+=======
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+>>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
 
 import cokr.oneweeks.guestbook.domain.entity.Board;
 import cokr.oneweeks.guestbook.domain.entity.QBoard;
 import cokr.oneweeks.guestbook.domain.entity.QMember;
 import cokr.oneweeks.guestbook.domain.entity.QReply;
+<<<<<<< HEAD
+=======
+
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.Tuple;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.jpa.JPQLQuery;
+
+>>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -30,11 +46,16 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 
   @Override
   public Board search1() {
+<<<<<<< HEAD
     log.info("search1 ...");
+=======
+    log.info("search1 ... ");
+>>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
     QBoard board = QBoard.board;
     QReply reply = QReply.reply;
     QMember member = QMember.member;
     JPQLQuery<Board> jpqlQuery = from(board);
+<<<<<<< HEAD
 
     jpqlQuery
       .leftJoin(member).on(board.member.eq(member))
@@ -46,11 +67,26 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
     log.info(tuple);
     List<Tuple> list = tuple.fetch();
     
+=======
+    jpqlQuery
+      .leftJoin(member).on(board.member.eq(member))
+      .leftJoin(reply).on(reply.board.eq(board));
+    JPQLQuery<Tuple> tuple = 
+      jpqlQuery
+      .select(board, member.email, reply.count())
+      .groupBy(board);
+    log.info(tuple);
+    tuple.fetch();
+>>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
     return null;
   }
 
   @Override
+<<<<<<< HEAD
   public Page<Object[]> searPage(String type, String keword, Pageable pageable) {
+=======
+  public Page<Object[]> searchPage(String type, String keyword, Pageable pageable) {
+>>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
     QBoard board = QBoard.board;
     QMember member = QMember.member;
     QReply reply = QReply.reply;
@@ -59,6 +95,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
     jpqlQuery
       .leftJoin(member).on(board.member.eq(member))
       .leftJoin(reply).on(reply.board.eq(board));
+<<<<<<< HEAD
 
     JPQLQuery<Tuple> tuple =
       jpqlQuery  
@@ -122,3 +159,53 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
   }
   
 }
+=======
+    JPQLQuery<Tuple> tuple = jpqlQuery.select(board, member.email, reply.count());
+
+    BooleanBuilder booleanBuilder = new BooleanBuilder();
+    BooleanExpression expression = board.bno.gt(0L);
+
+    booleanBuilder.and(expression);
+
+    if(type != null) {
+      BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+      if(type.contains("T")) {
+        conditionBuilder.or(board.title.contains(keyword));
+      } else if(type.contains("C")) {
+        conditionBuilder.or(board.content.contains(keyword));
+      } else if(type.contains("W")) {
+        conditionBuilder.or(member.email.contains(keyword));
+      }
+
+      booleanBuilder.and(conditionBuilder);
+    }
+
+    tuple.where(booleanBuilder);
+
+    // order by
+    Sort sort = pageable.getSort();
+
+    sort.stream().forEach(order -> {
+      Order direction = order.isAscending()? Order.ASC : Order.DESC;
+      String prop = order.getProperty();
+
+      PathBuilder<Board> orderByExpression = new PathBuilder<>(Board.class, "board");
+      tuple.orderBy(new OrderSpecifier<>(direction, orderByExpression.get(prop, String.class)));
+    });
+
+    tuple.groupBy(board);
+
+    // page 처리
+    tuple.offset(pageable.getOffset());
+    tuple.limit(pageable.getPageSize());
+
+    log.info(tuple);
+
+    List<Tuple> result = tuple.fetch();
+
+    Long count = tuple.fetchCount();
+    return new PageImpl<>(result.stream().map(t -> t.toArray()).toList(), pageable, count);
+  }
+}
+>>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b

@@ -17,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -40,6 +39,7 @@ public class NoteController {
   @GetMapping("{num}")
   public ResponseEntity<?> get(@PathVariable Long num) {
     return ResponseEntity.ok().body(service.get(num));
+    //service.get(num)
   }
   
   @GetMapping("list")
@@ -51,6 +51,8 @@ public class NoteController {
   public ResponseEntity<?> modify(@PathVariable Long num, @RequestBody NoteDto dto) {
     service.modify(dto);
     return ResponseEntity.ok().body("success");
+    // return service.modify(dto) > 0 ? "success" : "falure" ;
+    //다른방법 사용시에는 public String modify() {} 식으로도 사용가능
   }
 
   @DeleteMapping("{num}")

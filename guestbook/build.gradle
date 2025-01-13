@@ -70,6 +70,9 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+// tasks.withType(JavaCompile) {
+//     options.compilerArgs << "-parameters"
+// }
 sourceSets {
     main.java.srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
 }

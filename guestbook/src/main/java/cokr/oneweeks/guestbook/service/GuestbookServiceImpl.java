@@ -29,7 +29,6 @@ public class GuestbookServiceImpl implements GuestbookService {
   private final GuestRepository repository;
   
   
-  @Override
   public Long write(GuestbookDto dto) {
     Guestbook guestbook = toEntity(dto);
     log.info(guestbook);
@@ -38,8 +37,11 @@ public class GuestbookServiceImpl implements GuestbookService {
     return guestbook.getGno();
   }
 
+<<<<<<< HEAD
   @Override
   @Transactional
+=======
+>>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
   public void remove(Long gno) {
     repository.deleteById(gno);
   }
@@ -47,8 +49,8 @@ public class GuestbookServiceImpl implements GuestbookService {
   @Override
   public void modify(GuestbookDto dto) {
     repository.save(toEntity(dto));    
-
   }
+
   @Override
   public GuestbookDto read(Long gno) {
     // if(!opt.isPresent()) {
@@ -58,19 +60,22 @@ public class GuestbookServiceImpl implements GuestbookService {
     Optional<Guestbook> opt = repository.findById(gno);
     return opt.isPresent() ? toDto(opt.get()) : null;
   }
-  
+
   @Override
   public PageResultDto<GuestbookDto, Guestbook> list(PageRequestDto dto) {
     Pageable pageable = dto.getPageable(Sort.by(Direction.DESC, "gno"));
     BooleanBuilder booleanBuilder = getSearch(dto);
+<<<<<<< HEAD
     
+=======
+>>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
     Page<Guestbook> page = repository.findAll(booleanBuilder, pageable);
     // Function<Guestbook, GuestbookDto> fn = e -> toDto(e);
     PageResultDto<GuestbookDto, Guestbook> resultDto =  new PageResultDto<>(page, e -> toDto(e));
     return resultDto;
   }
 
-  private BooleanBuilder getSearch(PageRequestDto requestDto){
+  private BooleanBuilder getSearch(PageRequestDto requestDto) {
     String type = requestDto.getType();
     BooleanBuilder booleanBuilder = new BooleanBuilder();
     QGuestbook qGuestbook = QGuestbook.guestbook;
@@ -83,17 +88,23 @@ public class GuestbookServiceImpl implements GuestbookService {
 
     BooleanBuilder conditionalBuilder = new BooleanBuilder();
     String keyword = requestDto.getKeyword();
-    if (type.contains("T")) {
+    if(type.contains("T")) {
       conditionalBuilder.or(qGuestbook.title.contains(keyword));
     }
+<<<<<<< HEAD
     if (type.contains("C")) {
       conditionalBuilder.or(qGuestbook.content.contains(keyword));
     }
     if (type.contains("W")) {
+=======
+    if(type.contains("C")) {
+      conditionalBuilder.or(qGuestbook.content.contains(keyword));
+    }
+    if(type.contains("W")) {
+>>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
       conditionalBuilder.or(qGuestbook.writer.contains(keyword));
     }
     booleanBuilder.and(conditionalBuilder);
     return booleanBuilder;
   }
-  
 }

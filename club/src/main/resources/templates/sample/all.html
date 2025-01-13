@@ -17,9 +17,9 @@
       <div sec:authorize="hasRole('MANAGER')">MANAGER ROLE</div>
       <div sec:authorize="hasRole('ADMIN')">ADMIN ROLE</div>
       <!-- <div sec:authentication="principal.username"> -->
-      <!-- <div sec:authentication="principal"></div>
-      <div sec:authentication="isAuthenticated()"></div>
-       <div sec:authentication="principal.password"></div> -->
+      <div sec:authentication="principal"></div>
+      <!-- <div sec:authentication="isAuthenticated()"></div> -->
+       <div sec:authentication="principal.password"></div>
     </div>
 </body>
 </html>
