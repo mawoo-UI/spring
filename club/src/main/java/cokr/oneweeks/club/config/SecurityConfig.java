@@ -18,8 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import cokr.oneweeks.club.security.filter.ApiCheckFilter;
 import cokr.oneweeks.club.security.filter.ApiLoginFilter;
+import cokr.oneweeks.club.security.handler.ApiLoginFailHandler;
 import cokr.oneweeks.club.security.handler.LoginSuccessHandler;
 // import lombok.extern.log4j.Log4j2;
+import cokr.oneweeks.club.security.util.JWTUtil;
 
 @Configuration
 @EnableMethodSecurity
@@ -43,14 +45,20 @@ public class SecurityConfig {
 
   @Bean
   public ApiCheckFilter apiCheckFilter() {
-    return new ApiCheckFilter("/api/v1/**");
+    return new ApiCheckFilter("/api/v1/**", jwtUtil());
+  }
+
+  @Bean
+  public JWTUtil jwtUtil() {
+    return new JWTUtil();
   }
 
   //중요함
   @Bean
   public ApiLoginFilter apiLoginFilter(AuthenticationManager authenticationManager) throws Exception{
-    ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login");
+    ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login" , jwtUtil());
     apiLoginFilter.setAuthenticationManager(authenticationManager);
+    apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
     return apiLoginFilter;
   }
 

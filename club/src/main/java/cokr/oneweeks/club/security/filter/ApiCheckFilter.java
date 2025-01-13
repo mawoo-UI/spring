@@ -7,7 +7,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-
+import cokr.oneweeks.club.security.util.JWTUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,34 +21,37 @@ import net.minidev.json.JSONObject;
 public class ApiCheckFilter extends OncePerRequestFilter {
   private AntPathMatcher antPathMatcher;
   private String pattern;
+  private JWTUtil jwtUtil;
 
-  public ApiCheckFilter(String pattern) {
+  public ApiCheckFilter(String pattern , JWTUtil jwtUtil) {
     this.antPathMatcher = new AntPathMatcher();
     this.pattern = pattern;
+    this.jwtUtil = jwtUtil;
   }
-
+  
   @Override
   protected void doFilterInternal( HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
     if (antPathMatcher.match(pattern, request.getRequestURI())) {
       log.info("========================= api check filter =======================");
       log.info(request.getRequestURI());
-    }
       
       if (checkAuthHeader(request)) {
+
         filterChain.doFilter(request, response);
       }
       else {
         response.setContentType("application/json; charset=utf-8");
         response.setStatus(403);
-      JSONObject jsonObject = new JSONObject();
-      jsonObject.put("code",403);
-      jsonObject.put("message","FAIL CHECK API TOKEN");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code",403);
+        jsonObject.put("message","FAIL CHECK API TOKEN");
       
       response.getWriter().print(jsonObject);
      }
-     filterChain.doFilter(request, response);
     return; //기존 동작방지
+    }
+    filterChain.doFilter(request, response);
   }
 
 
@@ -56,11 +59,15 @@ public class ApiCheckFilter extends OncePerRequestFilter {
     boolean result = false;
     String authHeader = request.getHeader("Authorization");
     
-    if (StringUtils.hasText(authHeader)) {
+    if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
       log.info("Authentication exist ::" + authHeader);
-      if (authHeader.equals("12345678")) {
-        result = true;
-      }
+      String email = jwtUtil.validateExtract(authHeader.substring(7));
+      log.info("valid email :: " + email);
+      result = email.length() > 0;
+
+      // if (authHeader.equals("12345678")) {
+      //   result = true;
+      // }
     }
     return result;
   }
