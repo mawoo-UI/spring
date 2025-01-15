@@ -25,6 +25,14 @@ public class Attach extends BaseEntity{
   private String origin;
   private boolean image;
   private String path;
+
+
+  private long size;
+  private String mime;
+  private String fileName;
+  private String ext;
+  private String url;
+  
   @ManyToOne(fetch = FetchType.LAZY)
   private Note note;
 

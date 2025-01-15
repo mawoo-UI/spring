@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
 import cokr.oneweeks.club.entity.Attach;
-import cokr.oneweeks.club.entity.Member;
 import cokr.oneweeks.club.entity.Note;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
@@ -27,6 +26,7 @@ public class AttachRepositoryTests {
     for(int i = 0; i< 5; i++) {
 
       Attach attach = Attach.builder()
+      .uuid(""+i)
       .origin("1.png")
       .note(Note.builder().num(1L).build())
       .build();
@@ -36,7 +36,7 @@ public class AttachRepositoryTests {
   }
 
   @Test
-  @Transactional
+  // @Transactional
   public void testFindByEmail() {
 
   }
