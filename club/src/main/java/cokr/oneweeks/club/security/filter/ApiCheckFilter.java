@@ -2,6 +2,9 @@ package cokr.oneweeks.club.security.filter;
 
 import java.io.IOException;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
@@ -33,12 +36,21 @@ public class ApiCheckFilter extends OncePerRequestFilter {
   protected void doFilterInternal( HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
     if (antPathMatcher.match(pattern, request.getRequestURI())) {
+        
+          
+
       log.info("========================= api check filter =======================");
       log.info(request.getRequestURI());
       
       if (checkAuthHeader(request)) {
+        String token = request.getHeader("Authorization");
+        String email = jwtUtil.validateExtract(token);
 
+        
+        Authentication authentication = new UsernamePasswordAuthenticationToken(email, null,null);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
+        return;
       }
       else {
         response.setContentType("application/json; charset=utf-8");
@@ -48,8 +60,10 @@ public class ApiCheckFilter extends OncePerRequestFilter {
         jsonObject.put("message","FAIL CHECK API TOKEN");
       
       response.getWriter().print(jsonObject);
-     }
-    return; //기존 동작방지
+      response.getWriter().flush();
+      response.getWriter().close();
+      return; //기존 동작방지
+    }
     }
     filterChain.doFilter(request, response);
   }
@@ -61,9 +75,14 @@ public class ApiCheckFilter extends OncePerRequestFilter {
     
     if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
       log.info("Authentication exist ::" + authHeader);
-      String email = jwtUtil.validateExtract(authHeader.substring(7));
-      log.info("valid email :: " + email);
-      result = email.length() > 0;
+      try {
+        
+        String email = jwtUtil.validateExtract(authHeader.substring(7));
+        log.info("valid email :: " + email);
+        result = email.length() > 0;
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
 
       // if (authHeader.equals("12345678")) {
       //   result = true;

@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cokr.oneweeks.club.entity.Member;
 import cokr.oneweeks.club.entity.Note;
+import cokr.oneweeks.club.repository.MemberRepository;
 import cokr.oneweeks.club.repository.NoteRepository;
 import cokr.oneweeks.club.security.dto.NoteDto;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +22,11 @@ public class NoteServiceImpl implements NoteService {
   @Autowired
   private NoteRepository repository;
   
+  @Autowired
+  private MemberRepository memberRepository;
  
   public Long repository(NoteDto dto) {
-    Note note = ToEntity(dto);
+    Note note = toEntity(dto);
 
     log.info("===================");
     log.info(note);
@@ -31,18 +35,15 @@ public class NoteServiceImpl implements NoteService {
     return note.getNum();
   }
   
-  public NoteDto get (Long num) {
+  public Optional<NoteDto> get (Long num) {
     Note note = repository.findByNum(num);
-    // if (result.isPresent()) {
-      
-    //   return toDto(result.get());
-    // }
-    return toDto(note);
+    return repository.findById(num).map(this::toDto);
   }
   
   public void modify(NoteDto dto) {
-    repository.save(ToEntity(dto));
+    repository.save(toEntity(dto));
   }
+
 
   public void remove(Long num) {
     repository.deleteById(num);
@@ -63,9 +64,14 @@ public class NoteServiceImpl implements NoteService {
 
   @Override
   public Long write(NoteDto dto) {
-    Note note = ToEntity(dto);
-    repository.save(note);
-    return note.getNum();
+    Member member = memberRepository.findByEmail(dto.getWriter());
+    dto.setMno(member.getMno());
+    Note note = toEntity(dto);
+    return repository.save(toEntity(dto)).getNum();
+  }
+  @Override
+  public List<NoteDto> listAll() {
+    return repository.findAll().stream().map(this::toDto).toList();
   }
   
 

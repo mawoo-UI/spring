@@ -16,9 +16,7 @@ public class JWTTests {
   private JWTUtil jwtUtil;
 
   @BeforeEach
-
   @Test
-
   public void testBefore() {
     jwtUtil = new JWTUtil();
   }

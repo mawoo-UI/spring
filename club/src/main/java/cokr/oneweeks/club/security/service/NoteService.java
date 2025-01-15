@@ -2,18 +2,27 @@ package cokr.oneweeks.club.security.service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import cokr.oneweeks.club.entity.Member;
 import cokr.oneweeks.club.entity.Note;
 import cokr.oneweeks.club.security.dto.NoteDto;
 
 public interface NoteService {
-  default Note ToEntity(NoteDto Dto){
+  // Note ToEntity(NoteDto Dto) {
+    Optional <NoteDto> get(Long num);
+
+    Long write(NoteDto dto);
+    List<NoteDto> list(String memberEmail);
+    List<NoteDto> listAll();
+
+
+  default Note toEntity(NoteDto dto) {
     Note note = Note.builder()
-    .num(Dto.getNum())
-    .title(Dto.getTitle())
-    .content(Dto.getContent())
-    .member(Member.builder().email(Dto.getWriter()).mno(Dto.getMno()).build()) 
+    .num(dto.getNum())
+    .title(dto.getTitle())
+    .content(dto.getContent())
+    .member(Member.builder().email(dto.getWriter()).mno(dto.getMno()).build()) 
     .build();
     // .member(noteDto.get)
     return note;
@@ -32,7 +41,9 @@ public interface NoteService {
   }
   void remove(Long num);
   void modify(NoteDto dto);
-  NoteDto get(Long num);
-  List<NoteDto> list(String email);
-  Long write(NoteDto dto);
+//   NoteDto get(Long num);
+//   List<NoteDto> list(String email);
+//   Long write(NoteDto dto);
+//   List<NoteDto> listAll();
+
 }

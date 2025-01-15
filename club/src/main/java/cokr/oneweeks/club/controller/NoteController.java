@@ -8,7 +8,9 @@ import cokr.oneweeks.club.security.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +25,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 
+
 @RestController
+@RequiredArgsConstructor
 @Log4j2
 @RequestMapping("api/v1/notes")
 public class NoteController {
@@ -36,19 +40,33 @@ public class NoteController {
     return new ResponseEntity<>(num, HttpStatus.OK);
   }
   
+  @SuppressWarnings("unchecked")
   @GetMapping("{num}")
   public ResponseEntity<?> get(@PathVariable Long num) {
-    return ResponseEntity.ok().body(service.get(num));
-    //service.get(num)
+    return service.get(num).map(ResponseEntity::ok)
+    .orElseGet(() -> {
+      Map<String,Object> ret = new HashMap<>();
+      ret.put("code",404);
+      ret.put("massage", "NOT_FOUND");
+      ResponseEntity<?> entity = new ResponseEntity<>(ret, HttpStatus.NOT_FOUND);
+      return (ResponseEntity<NoteDto>) entity;
+      // .notFound().build();
+      //service.get(num)
+    });
   }
   
   @GetMapping("list")
   public ResponseEntity<?> list(String email) {
     return ResponseEntity.ok().body(service.list(email));
   }
+  @GetMapping("listall")
+  public List<NoteDto> listAll() {
+      return service.listAll();
+  }
+  
   
   @PutMapping("{num}")
-  public ResponseEntity<?> modify(@PathVariable Long num, @RequestBody NoteDto dto) {
+  public ResponseEntity<?> modify(@PathVariable Long num,  @RequestBody NoteDto dto) {
     service.modify(dto);
     return ResponseEntity.ok().body("success");
     // return service.modify(dto) > 0 ? "success" : "falure" ;
