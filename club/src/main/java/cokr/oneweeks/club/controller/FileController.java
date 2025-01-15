@@ -5,10 +5,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import cokr.oneweeks.club.security.service.S3Service;
+
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -16,6 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RestController
 @RequestMapping("/api/v1/file")
 public class FileController {
+  @Autowired
+  private S3Service service;
+
   @PostMapping("/upload")
   public ResponseEntity<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) {
     try {
@@ -37,6 +43,9 @@ public class FileController {
       responseData.put("s3Key", key);
       responseData.put("uploadTime", ZonedDateTime.now().toString());
 
+      // s3 upload
+      service.uploadFile(key, content, mimeType);
+
       // Return success response
       return ResponseEntity.ok(Map.of(
         "status", "success",
@@ -54,3 +63,4 @@ public class FileController {
   }
 
 }
+  
