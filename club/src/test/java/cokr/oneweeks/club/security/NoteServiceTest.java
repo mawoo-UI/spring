@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 // import cokr.oneweeks.club.entity.Member;
 import cokr.oneweeks.club.security.dto.NoteDto;
-import cokr.oneweeks.club.security.service.NoteService;
+import cokr.oneweeks.club.service.NoteService;
 import lombok.extern.log4j.Log4j2;
 
 @SpringBootTest
@@ -34,6 +34,11 @@ public class NoteServiceTest {
     log.info(service.list("user61oneweeks.cokr"));
   }
 
+  @Test
+  public void testRead(){
+    NoteDto dto = service.get(28L).get();
+    dto.getAttachDtos().forEach(log::info);
+  }
   // @Test
   // public void testMod(){
 

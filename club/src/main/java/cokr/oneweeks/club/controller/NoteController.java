@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cokr.oneweeks.club.security.dto.NoteDto;
-import cokr.oneweeks.club.security.service.NoteService;
+import cokr.oneweeks.club.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -23,9 +23,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-
-
-
 @RestController
 @RequiredArgsConstructor
 @Log4j2
@@ -34,10 +31,13 @@ public class NoteController {
   @Autowired
   private NoteService service;
 
+
   @PostMapping
-  public ResponseEntity<?> register(@RequestBody NoteDto dto) {
-    Long num = service.write(dto);      
-    return new ResponseEntity<>(num, HttpStatus.OK);
+  public Long register(@RequestBody NoteDto dto) {
+    // Long num = service.write(dto);      
+    log.info(dto);
+    return service.write(dto);
+    // return new ResponseEntity<>(num, HttpStatus.OK);
   }
   
   @SuppressWarnings("unchecked")

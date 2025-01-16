@@ -1,4 +1,4 @@
-package cokr.oneweeks.club.security.service;
+package cokr.oneweeks.club.service;
 
 import java.util.List;
 import java.util.Optional;

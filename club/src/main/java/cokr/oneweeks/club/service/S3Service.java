@@ -1,4 +1,4 @@
-package cokr.oneweeks.club.security.service;
+package cokr.oneweeks.club.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,12 @@ public class S3Service {
   private String bucketName;
 
   private final S3Client s3Client;
-
+  // private final S3Service s3Service;
   public S3Service(S3Client s3Client) {
     this.s3Client = s3Client;
+    // this.s3Service = s3Service;
   }
-
+  
   public String uploadFile(String key, byte[] content, String mimeType) {
     PutObjectRequest putObjectRequest = PutObjectRequest.builder()
         .bucket(bucketName)

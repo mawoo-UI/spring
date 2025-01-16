@@ -20,7 +20,7 @@ import lombok.ToString;
 @Builder
 public class Attach extends BaseEntity{
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+  // @GeneratedValue(strategy = GenerationType.UUID)
   private String uuid;
   private String origin;
   private boolean image;
