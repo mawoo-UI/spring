@@ -4,12 +4,15 @@ package cokr.oneweeks.club.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import cokr.oneweeks.club.entity.Attach;
 import cokr.oneweeks.club.entity.Member;
 import cokr.oneweeks.club.entity.Note;
 import cokr.oneweeks.club.entity.dto.AttachDto;
 import cokr.oneweeks.club.entity.dto.NoteDto;
 
+@Service
 public interface NoteService {
   // Note ToEntity(NoteDto Dto) {
     Optional <NoteDto> get(Long num);
