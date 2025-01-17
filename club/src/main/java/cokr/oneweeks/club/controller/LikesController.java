@@ -38,7 +38,6 @@ public class LikesController {
   public ResponseEntity<?> toggle(@RequestBody LikesDto dto, @AuthenticationPrincipal String email) {
     log.info(email);
     log.info(dto);
-    service.toggle(dto); 
     return ResponseEntity.ok().body(Map.of("result", service.toggle(dto)));
   }
 
