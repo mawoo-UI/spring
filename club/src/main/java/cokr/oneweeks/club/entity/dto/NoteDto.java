@@ -7,9 +7,13 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.Builder.Default;
 
+@Getter
+@Setter
 @Data
 @Builder
 @AllArgsConstructor
@@ -21,6 +25,8 @@ public class NoteDto {
   private String writer;
   private Long mno;
   private LocalDateTime regDate, modDate;
+
+  private long likesCnt;
 
   @Default
   private List<AttachDto> attachDtos = new ArrayList<>();

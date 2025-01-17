@@ -5,18 +5,23 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import cokr.oneweeks.club.entity.Likes;
 import cokr.oneweeks.club.entity.Member;
 import cokr.oneweeks.club.entity.Note;
+import cokr.oneweeks.club.entity.composite.LikesId;
 import cokr.oneweeks.club.entity.dto.NoteDto;
+import cokr.oneweeks.club.repository.LikesRepository;
 import cokr.oneweeks.club.repository.MemberRepository;
 import cokr.oneweeks.club.repository.NoteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Service
-@RequiredArgsConstructor
+@Transactional
 @Log4j2
 public class NoteServiceImpl implements NoteService {
   @Autowired
@@ -24,7 +29,10 @@ public class NoteServiceImpl implements NoteService {
   
   @Autowired
   private MemberRepository memberRepository;
- 
+  
+  @Autowired
+  private LikesRepository likesRepository;
+
   public Long repository(NoteDto dto) {
     Note note = toEntity(dto);
 
@@ -36,9 +44,12 @@ public class NoteServiceImpl implements NoteService {
   }
   
   public Optional<NoteDto> get (Long num) {
-    Note note = repository.findByNum(num);
-    return repository.findById(num).map(this::toDto);
+    long count = likesRepository.count(Example.of(Likes.builder().note(Note.builder().num(num).build()).build()));
+    // Note note = repository.findByNum(num);
+    log.info(count);
+    return repository.findById(num).map(this::toDto).map(d -> {d.setLikesCnt(count); return d;});
   }
+
   
   public void modify(NoteDto dto) {
     repository.save(toEntity(dto));

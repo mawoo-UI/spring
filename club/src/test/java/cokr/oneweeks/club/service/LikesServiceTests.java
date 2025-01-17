@@ -49,6 +49,7 @@ public class LikesServiceTests {
     List<LikesDto> likesDtos = new ArrayList<>();
     Collections.shuffle(mnos);
     Collections.shuffle(nums);
+    
     // mnos.subList(0,(int)(mnos.size() * 2));
 
     for(int i = 0; i < mnos.size(); i++){
@@ -60,7 +61,7 @@ public class LikesServiceTests {
     log.info(likesDtos.size());
 
     likesDtos = likesDtos.subList(0,likesDtos.size() / 5);
-    
+
     log.info(likesDtos.size());
 
     likesDtos.forEach(dto -> service.toggle(dto));

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import cokr.oneweeks.club.entity.dto.LikesDto;
 import cokr.oneweeks.club.service.LikesService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
