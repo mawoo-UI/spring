@@ -1,4 +1,4 @@
-package cokr.oneweeks.club.security.dto;
+package cokr.oneweeks.club.entity.dto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

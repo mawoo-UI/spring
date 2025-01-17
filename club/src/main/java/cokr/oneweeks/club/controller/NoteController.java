@@ -3,7 +3,7 @@ package cokr.oneweeks.club.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cokr.oneweeks.club.security.dto.NoteDto;
+import cokr.oneweeks.club.entity.dto.NoteDto;
 import cokr.oneweeks.club.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

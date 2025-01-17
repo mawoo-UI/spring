@@ -6,8 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-// import cokr.oneweeks.club.entity.Member;
-import cokr.oneweeks.club.security.dto.NoteDto;
+import cokr.oneweeks.club.entity.dto.NoteDto;
 import cokr.oneweeks.club.service.NoteService;
 import lombok.extern.log4j.Log4j2;
 

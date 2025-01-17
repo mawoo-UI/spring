@@ -16,10 +16,9 @@ public class S3Service {
   private String bucketName;
 
   private final S3Client s3Client;
-  // private final S3Service s3Service;
+  
   public S3Service(S3Client s3Client) {
     this.s3Client = s3Client;
-    // this.s3Service = s3Service;
   }
   
   public String uploadFile(String key, byte[] content, String mimeType) {

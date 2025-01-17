@@ -7,15 +7,21 @@ import java.util.Optional;
 import cokr.oneweeks.club.entity.Attach;
 import cokr.oneweeks.club.entity.Member;
 import cokr.oneweeks.club.entity.Note;
-import cokr.oneweeks.club.security.dto.AttachDto;
-import cokr.oneweeks.club.security.dto.NoteDto;
+import cokr.oneweeks.club.entity.dto.AttachDto;
+import cokr.oneweeks.club.entity.dto.NoteDto;
 
 public interface NoteService {
   // Note ToEntity(NoteDto Dto) {
     Optional <NoteDto> get(Long num);
 
+    void remove(Long num);
+
+    void modify(NoteDto dto);
+
     Long write(NoteDto dto);
+
     List<NoteDto> list(String memberEmail);
+
     List<NoteDto> listAll();
 
 
@@ -68,8 +74,7 @@ public interface NoteService {
       ).build();
     return noteDto;
   }
-  void remove(Long num);
-  void modify(NoteDto dto);
+
 //   NoteDto get(Long num);
 //   List<NoteDto> list(String email);
 //   Long write(NoteDto dto);

@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 import cokr.oneweeks.club.entity.Member;
 import cokr.oneweeks.club.entity.Note;
+import cokr.oneweeks.club.entity.dto.NoteDto;
 import cokr.oneweeks.club.repository.MemberRepository;
 import cokr.oneweeks.club.repository.NoteRepository;
-import cokr.oneweeks.club.security.dto.NoteDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
