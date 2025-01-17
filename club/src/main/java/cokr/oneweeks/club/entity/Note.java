@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.Builder.Default;
 
@@ -25,7 +26,7 @@ import lombok.Builder.Default;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = "member")
+@ToString(exclude = {"member", "attachs"})
 public class Note extends BaseEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,12 +41,13 @@ public class Note extends BaseEntity{
 
   @Default
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "note", orphanRemoval = true, cascade = CascadeType.ALL)
+  @Setter
   private List<Attach> attachs = new ArrayList<>();
 
 
-  public void setAttachs(List<Attach> list) {
-    throw new UnsupportedOperationException("Unimplemented method 'setAttachs'");
-  }
+  // public void setAttachs(List<Attach> list) {
+  //   throw new UnsupportedOperationException("Unimplemented method 'setAttachs'");
+  // }
   
   // public void changeTitle(String title){
   //   this.title = title;

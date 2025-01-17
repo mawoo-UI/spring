@@ -1,5 +1,6 @@
 package cokr.oneweeks.club.repository;
 
+import java.util.Arrays;
 import java.util.stream.LongStream;
 
 import org.junit.jupiter.api.Test;
@@ -46,5 +47,10 @@ public class NoteRepositoryTests {
   @Test
   public void testList2() {
     repository.findByMemberEmail("user100oneweeks.cokr").forEach(log::info);
+  }
+
+  @Test
+  public void testListJPQL() {
+    repository.findByNotes("user100oneweeks.cokr").forEach(o ->{ log.info(Arrays.toString(o)); });
   }
 }

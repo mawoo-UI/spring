@@ -56,9 +56,10 @@ public class NoteController {
   }
   
   @GetMapping("list")
-  public ResponseEntity<?> list(String email) {
-    return ResponseEntity.ok().body(service.list(email));
+  public List<NoteDto> list(String email) {
+    return service.list(email);
   }
+
   @GetMapping("listall")
   public List<NoteDto> listAll() {
       return service.listAll();
