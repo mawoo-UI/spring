@@ -37,8 +37,10 @@ public class LikesServiceTests {
 
 
   @Test
-  public void testTogg(LikesDto dto) {
+  public void testTogg() {
+    
     service.toggle(dto);
+    log.info(dto);
 
   }
   @Test 

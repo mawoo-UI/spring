@@ -12,7 +12,7 @@ import cokr.oneweeks.club.entity.dto.LikesDto;
 // @RequiredArgsConstructor
 // @Log4j2
 public interface LikesService {
-  void toggle(LikesDto dto);
+  boolean toggle(LikesDto dto);
   boolean get(LikesDto dto);
   
 

@@ -2,14 +2,17 @@ package cokr.oneweeks.club.controller;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cokr.oneweeks.club.entity.dto.LikesDto;
 import cokr.oneweeks.club.service.LikesService;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,9 +33,13 @@ public class LikesController {
     return service.get(dto);
     
   }
-  @PostMapping("path")
-  public void postMethodName(@RequestBody LikesDto dto) {
-     service.toggle(dto); 
+  // @PreAuthorize("email == dto.email")
+  @PostMapping
+  public ResponseEntity<?> toggle(@RequestBody LikesDto dto, @AuthenticationPrincipal String email) {
+    log.info(email);
+    log.info(dto);
+    service.toggle(dto); 
+    return ResponseEntity.ok().body(Map.of("result", service.toggle(dto)));
   }
 
 }

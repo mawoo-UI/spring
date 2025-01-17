@@ -31,8 +31,13 @@ public class LikesServiceImpl implements LikesService{
   }
 
   @Override
-  public void toggle(LikesDto dto) {
-    if (get(dto)) {
+  public boolean toggle(LikesDto dto) {
+    if (dto.getMno() == null) {
+      Long mno = memberRepository.findByEmail(dto.getEmail()).getMno();
+      dto.setMno(mno);
+    }
+    boolean ret = get(dto);
+    if (ret) {
       repository.delete(toEntity(dto));   
       
     }
@@ -40,6 +45,7 @@ public class LikesServiceImpl implements LikesService{
       repository.save(toEntity(dto));
 
     }
+    return ret;
   }
   
 }
