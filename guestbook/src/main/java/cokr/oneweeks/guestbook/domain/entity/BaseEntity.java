@@ -12,20 +12,16 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.ToString;
 
-@MappedSuperclass //어떤 엔티티의 조상 클래스가 될 예정(그 필드를 자손으로 쓸 수 있음)
-@EntityListeners(value = AuditingEntityListener.class) //어플리케이션 시작지점에도 선언해야함
+@MappedSuperclass
+@EntityListeners(value = AuditingEntityListener.class)
 @Getter
 @ToString
 public class BaseEntity {
-
   @CreatedDate
-  @Column(name = "regdate",updatable = false) //updatable = false:외부적으로 못쓰게하는것
+  @Column(name = "regdate", updatable = false)
   private LocalDateTime regDate;
 
-  // Rembrandt
   @LastModifiedDate
   @Column(name = "moddate")
-  private LocalDateTime modDate;
-  
-
+  private LocalDateTime modDate;  
 }

@@ -1,7 +1,5 @@
 package cokr.oneweeks.guestbook.Controller;
 
-// import javax.inject.Inject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +14,6 @@ import lombok.extern.log4j.Log4j2;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-<<<<<<< HEAD
-=======
-
-import lombok.extern.log4j.Log4j2;
->>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -29,12 +22,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Log4j2
 public class GuestbookController {
   @Autowired
-  // @Inject //Autowired와 같은기능함
   private GuestbookService service;
 
   @GetMapping({"", "list"})
   public String list(Model model, PageRequestDto dto) {
-
+    // log.info("?");
     model.addAttribute("result", service.list(dto));
     return "/guestbook/list";
   }
@@ -65,15 +57,9 @@ public class GuestbookController {
   }
   
   @PostMapping("remove")
-<<<<<<< HEAD
-  public String remove(GuestbookDto dto, PageRequestDto pageDto, RedirectAttributes rttr) {
-    service.remove(dto.getGno());
-    rttr.addAttribute("page", 1);
-=======
   public String remove(Long gno, PageRequestDto pageDto, RedirectAttributes rttr) {
     service.remove(gno);
     rttr.addAttribute("page", pageDto.getPage());
->>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
     rttr.addAttribute("type", pageDto.getType());
     rttr.addAttribute("keyword", pageDto.getKeyword());
     return "redirect:list";

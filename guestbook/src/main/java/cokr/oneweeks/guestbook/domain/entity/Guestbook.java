@@ -6,11 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Getter
@@ -19,17 +15,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Table(name = "tbl_guestbook")
-public class Guestbook extends BaseEntity {
-  @Id //Entity속성값이 jakarta꺼라서 맞춰서 작성
+public class Guestbook extends BaseEntity{
+  @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long gno;
-  
-  @Column(nullable = false, length = 100) //길이값,NotNull할것/
+  @Column(nullable = false, length = 100)
   private String title;
-  @Column(nullable = false, length = 1500)  
+  @Column(nullable = false, length = 1500)
   private String content;
   @Column(nullable = false, length = 50)
   private String writer;
-  
-  
 }

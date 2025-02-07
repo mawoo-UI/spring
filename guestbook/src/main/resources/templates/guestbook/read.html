@@ -33,17 +33,6 @@
           <label for="modDate" class="form-label">수정일</label>
           <input type="modDate" class="form-control" id="modDate" placeholder="Enter modDate" name="modDate" readonly th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd')}">
         </div>
-<<<<<<< HEAD
-        <input type="hidden" name="page" th:value="${pageDto.page}">
-        <input type="hidden" name="type" th:value="${pageDto.type}">
-        <input type="hidden" name="keyword" th:value="${pageDto.keyword}">
-        <a th:href="@{/guestbook/modify(gno=${dto.gno}, page=${pageDto.page},
-        type=${pageRequestDto.type},
-        keyword${pageRequestDto.keyword})}" class="btn btn-outline-dark">Modify</a>
-        <a th:href="@{/guestbook/list(page=${pageDto.page}),
-        type=${pageRequestDto.type},
-              keyword${pageRequestDto.keyword}}" class="btn btn-dark">List</a>
-=======
 
         <a th:href="@{/guestbook/modify(gno=${dto.gno}, page=${pageDto.page},
           type=${pageDto.type},
@@ -53,7 +42,6 @@
           type=${pageDto.type},
           keyword=${pageDto.keyword}
         )}" class="btn btn-dark">List</a>
->>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
       </form>
       
     </th:block>

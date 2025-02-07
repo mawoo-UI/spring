@@ -7,13 +7,12 @@
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
-  <h1>Fragment Test</h1>  
-
-  <h1>Lay out 1 - 1</h1>
-  <div th:replace ="~{/fragments/fragment1 :: part1}"></div>
-  <h1>Lay out 1 - 2</h1>
-  <div th:insert ="~{/fragments/fragment1 :: part2}"></div>
-  <h1>Lay out 1 - 3</h1>
-  <div th:replace="~{/fragments/fragment1 }"></div>
+  <h1>FragmentTest</h1>
+  <h1>Layout 1 - 1</h1>
+  <div th:replace="~{/fragments/fragments1 :: part1} "></div>
+  <h1>Layout 1 - 2</h1>
+  <div th:insert="~{/fragments/fragments1 :: part2}"></div>
+  <h1>Layout 1 - 3</h1>
+  <div th:replace="~{/fragments/fragments1} "></div>
 </body>
 </html>

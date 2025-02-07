@@ -13,7 +13,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Component
 public class ControllerLogging {
-  @Before("execution(* cokr.oneweeks.guestbook.controller..*(..))")
+  @Before("execution(* com.eeerrorcode.guestbook.controller..*(..))")
   public void log(JoinPoint jp) {
     String className = jp.getTarget().getClass().getSimpleName();
     String methodName = jp.getSignature().getName();
@@ -29,7 +29,7 @@ public class ControllerLogging {
     log.info(str);
     Stream.of(args).filter(o -> {
       String name = o.getClass().getName();
-      return name.contains("cokr.oneweeks") || name.contains("java.lang");
+      return name.contains("com.eeerrorcode") || name.contains("java.lang");
     }).forEach(log::info);
     log.info("**************************** controller logger end *******************************");
   }

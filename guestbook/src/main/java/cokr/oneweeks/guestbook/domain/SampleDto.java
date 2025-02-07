@@ -6,10 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder(toBuilder = true)
+@Builder
 public class SampleDto {
   private Long sno;
   private String first;
   private String last;
-  private LocalDateTime regTime;  
+  private LocalDateTime regTime;
 }

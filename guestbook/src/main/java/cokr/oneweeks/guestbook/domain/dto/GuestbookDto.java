@@ -8,11 +8,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class GuestbookDto {
   private Long gno;
-  private String title,content,writer;
+  private String title, content, writer;
   private LocalDateTime regDate, modDate;
 }

@@ -6,11 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity(name = "tbl_reply")
 @Builder
@@ -18,8 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
-<<<<<<< HEAD
-@Table
+@Table(name = "tbl_reply")
 public class Reply extends BaseEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,21 +25,5 @@ public class Reply extends BaseEntity{
   private String replyer;
 
   @ManyToOne
-  //One To Many일 땐/ 모든 글, 모든 댓글 조회함 /회원들 조회하면 터짐(전 데이터베이스 조회됨)
   private Board board;
-
-=======
-@Table(name = "tbl_reply")
-public class Reply extends BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rno;
-
-    private String text;
-
-    private String replyer;
-
-    @ManyToOne
-    private Board board;
->>>>>>> 2f2f45ebec147e15252a0ada563193b9290f154b
 }

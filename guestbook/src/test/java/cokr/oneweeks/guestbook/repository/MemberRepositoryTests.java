@@ -1,70 +1,49 @@
 package cokr.oneweeks.guestbook.repository;
 
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.test.annotation.Rollback;
 
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
-
-import cokr.oneweeks.guestbook.domain.entity.Guestbook;
 import cokr.oneweeks.guestbook.domain.entity.Member;
+
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 
 @SpringBootTest
 @Log4j2
 public class MemberRepositoryTests {
-    @Autowired
+  @Autowired
   private MemberRepository repository;
 
   @Test
-  @Transactional
   public void testExist() {
-    // Member member = Member.builder()
-    // .email("a@b.c")
-    // .password("1234")
-    // .name("새똥이")
-    // .build();
-    // repository.save(member);
+    log.info(repository);
   }
-  
+
   @Test
   @Transactional
+  @Rollback(false)
   public void testInsert() {
-    IntStream.rangeClosed(2,100).forEach(i -> {
+    IntStream.rangeClosed(2, 100).forEach(i -> {
       Member member = Member.builder()
       .email("user" + i + "@a.com")
       .password("1234")
-      .name("새똥이")
+      .name("쿠키" + i)
       .build();
-      // repository.save(member);
+      repository.save(member);
     });
-    
   }
+
   @Test
   public void testSelectList() {
+    repository.findAll().forEach(log::info);
   }
+
   @Test
   public void testSelectOne() {
-  }
-  @Test
-  public void testModify() {
-   
-    
-    
-  
-  }
-  @Test
-  public void testQuerydsl() {
- 
+    log.info(repository.findById("user10@a.com"));
   }
 }

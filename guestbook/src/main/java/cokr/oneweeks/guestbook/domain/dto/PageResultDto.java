@@ -7,9 +7,7 @@ import java.util.stream.IntStream;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
@@ -23,8 +21,8 @@ public class PageResultDto<D, E> {
   private boolean prev, next;
 
   private List<Integer> pageList;
-  //유일 생성자
-  public PageResultDto(Page<E> result, Function<E,D> fn) {
+
+  public PageResultDto(Page<E> result, Function<E, D> fn) {
     dtoList = result.stream().map(fn).toList();
     totalPage = result.getTotalPages();
 
@@ -32,14 +30,13 @@ public class PageResultDto<D, E> {
     page = pageable.getPageNumber() + 1;
     size = pageable.getPageSize();
 
-    int tempEnd = (int)(Math.ceil(page/ 10.0)) * 10;
-    start = tempEnd -9;
+    int tempEnd = (int)(Math.ceil(page / 10.0)) * 10;
+    start = tempEnd - 9;
     prev = start > 1;
 
     end = totalPage > tempEnd ? tempEnd : totalPage;
     next = totalPage > tempEnd;
 
     pageList = IntStream.rangeClosed(start, end).boxed().toList();
-
   }
 }
